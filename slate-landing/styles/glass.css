@@ -1,0 +1,537 @@
+/* ====================================================================
+   SLATE — COGNITIVE MASTERY SYSTEM
+   FROSTED & FLUID GLASSMORPHISM SYSTEM
+   ==================================================================== */
+
+/* Glass Base Panel Variables */
+.glass-panel-wrapper {
+  position: absolute;
+  width: 100%;
+  max-width: 440px;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+.glass-panel {
+  position: relative;
+  background: rgba(13, 18, 28, 0.55);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+/* Glass Specular Reflection Highlight Line */
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 45%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 55%
+  );
+  pointer-events: none;
+  transform: rotate(25deg);
+  transition: transform 0.8s ease;
+}
+
+.glass-panel:hover::before {
+  transform: rotate(25deg) translate(20%, 20%);
+}
+
+.glass-header-mono {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+}
+
+.glass-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+/* HERO GLASS STAGE 3D DECK */
+.hero-glass-stage {
+  position: relative;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+/* Panel 1: CONFUSION (Back) */
+.panel-confusion {
+  top: 20px;
+  left: 0;
+  z-index: 1;
+  opacity: 0.7;
+  transform: translate3d(var(--par-confusion-x, 0px), var(--par-confusion-y, 0px), -60px) rotateX(var(--deck-rot-x, 0deg)) rotateY(var(--deck-rot-y, 0deg));
+}
+
+/* Panel 2: DIAGNOSIS (Middle) */
+.panel-diagnosis {
+  top: 110px;
+  left: 30px;
+  z-index: 2;
+  opacity: 0.88;
+  transform: translate3d(var(--par-diagnosis-x, 0px), var(--par-diagnosis-y, 0px), 0px) rotateX(var(--deck-rot-x, 0deg)) rotateY(var(--deck-rot-y, 0deg));
+}
+
+/* Panel 3: CLARITY (Front - High Glow) */
+.panel-clarity {
+  top: 200px;
+  left: 60px;
+  z-index: 3;
+  opacity: 1;
+  transform: translate3d(var(--par-clarity-x, 0px), var(--par-clarity-y, 0px), 60px) rotateX(var(--deck-rot-x, 0deg)) rotateY(var(--deck-rot-y, 0deg));
+}
+
+.panel-clarity .glass-panel {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(56, 189, 248, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Deck Hover Focus Physics */
+.deck-has-focus .glass-panel-wrapper.is-defocused {
+  opacity: 0.35;
+  filter: blur(4px);
+  transform: translate3d(0, 0, -100px) scale(0.95);
+}
+
+.deck-has-focus .glass-panel-wrapper.is-focused {
+  opacity: 1;
+  filter: blur(0px);
+  z-index: 10;
+  transform: translate3d(0, 0, 100px) scale(1.05);
+}
+
+/* Specific Deck Inner Contents */
+.confusion-fragments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.confusion-fragment {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.diagnosis-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--state-diagnosed-bg);
+  border: 1px solid var(--state-diagnosed-border);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--state-diagnosed);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.diagnosis-flaw-line {
+  font-size: 13.5px;
+  color: var(--ink-secondary);
+  line-height: 1.4;
+}
+
+.clarity-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-cyan);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.clarity-formula {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-cyan-bright);
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.clarity-subtext {
+  font-size: 12.5px;
+  color: var(--ink-muted);
+}
+
+/* --------------------------------------------------------------------
+   FLUID FROSTED GLASS METRICS STRIP (FIXING PLAIN TEXT FEEDBACK)
+   -------------------------------------------------------------------- */
+.metrics-strip {
+  margin-top: 60px;
+  position: relative;
+  z-index: 10;
+}
+
+.metrics-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.metric-item {
+  position: relative;
+  background: rgba(15, 22, 34, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.metric-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.6), transparent);
+  opacity: 0.3;
+  transition: opacity 0.35s ease;
+}
+
+.metric-item:hover {
+  transform: translateY(-4px);
+  background: rgba(20, 30, 46, 0.7);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(56, 189, 248, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.metric-item:hover::before {
+  opacity: 1;
+}
+
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--accent-cyan-bright);
+  line-height: 1;
+  text-shadow: 0 0 12px var(--accent-cyan-glow);
+}
+
+.metric-label {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  line-height: 1.35;
+}
+
+/* --------------------------------------------------------------------
+   PARADIGM CARDS & RECONSTRUCTION GLASS
+   -------------------------------------------------------------------- */
+.problem-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+.paradigm-card {
+  position: relative;
+  background: rgba(13, 18, 28, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 360px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  transition: all 0.35s ease;
+}
+
+.paradigm-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.paradigm-slate {
+  background: linear-gradient(145deg, rgba(16, 26, 42, 0.7), rgba(8, 14, 24, 0.8));
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.12);
+}
+
+.paradigm-slate:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 45px rgba(56, 189, 248, 0.25);
+}
+
+.card-header-mono {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+}
+
+.card-headline {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin-bottom: 12px;
+}
+
+.paradigm-description {
+  font-size: 15px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+}
+
+/* FLOW DIAGRAMS */
+.flow-diagram-shallow, .flow-diagram-slate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+
+.flow-node-shallow {
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.flow-node-shallow.wrong {
+  border-color: rgba(239, 68, 68, 0.4);
+  color: var(--state-diagnosed);
+  background: var(--state-diagnosed-bg);
+}
+
+.flow-node-slate {
+  padding: 8px 14px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-secondary);
+}
+
+.flow-node-slate.highlight {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan-bright);
+  box-shadow: 0 0 12px var(--accent-cyan-glow);
+  font-weight: 700;
+}
+
+.flow-node-slate.mastered {
+  border-color: rgba(16, 185, 129, 0.5);
+  color: var(--state-mastered);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.flow-arrow {
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+}
+
+/* --------------------------------------------------------------------
+   5-STATE GLASS MASTERY CARDS & TELEMETRY
+   -------------------------------------------------------------------- */
+.mastery-glass-system {
+  position: relative;
+  margin-top: 48px;
+}
+
+.mastery-states-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.mastery-glass-card {
+  position: relative;
+  background: rgba(13, 18, 28, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 210px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.mastery-glass-card:hover, .mastery-glass-card.active-state {
+  transform: translateY(-6px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.2);
+}
+
+.mastery-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.state-num-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-weight: 700;
+}
+
+.state-badge-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 100px;
+}
+
+.state-unseen .state-badge-pill { background: rgba(100, 116, 139, 0.15); color: var(--state-unseen); border: 1px solid rgba(100, 116, 139, 0.3); }
+.state-shaky .state-badge-pill { background: rgba(245, 158, 11, 0.15); color: var(--state-shaky); border: 1px solid rgba(245, 158, 11, 0.3); }
+.state-diagnosed .state-badge-pill { background: rgba(239, 68, 68, 0.15); color: var(--state-diagnosed); border: 1px solid rgba(239, 68, 68, 0.3); }
+.state-improving .state-badge-pill { background: rgba(59, 130, 246, 0.15); color: var(--state-improving); border: 1px solid rgba(59, 130, 246, 0.3); }
+.state-mastered .state-badge-pill { background: rgba(16, 185, 129, 0.15); color: var(--state-mastered); border: 1px solid rgba(16, 185, 129, 0.3); }
+
+.state-card-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+
+.state-card-desc {
+  font-size: 13px;
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+
+.state-metric-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin-top: 16px;
+}
+
+/* Dynamic State Inspector Telemetry Drawer */
+.telemetry-drawer {
+  margin-top: 24px;
+  background: rgba(15, 22, 34, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.telemetry-drawer.active {
+  display: block;
+}
+
+.telemetry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+}
+
+.telemetry-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent-cyan);
+  letter-spacing: 0.1em;
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.telemetry-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.telemetry-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.telemetry-val {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink-primary);
+}

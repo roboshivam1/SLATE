@@ -1,0 +1,80 @@
+/* ====================================================================
+   SLATE — COGNITIVE MASTERY SYSTEM
+   RESPONSIVE LAYOUT BREAKPOINTS
+   ==================================================================== */
+
+/* Tablet Breakpoint (<= 1024px) */
+@media (max-width: 1024px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-glass-stage {
+    height: 420px;
+    margin-top: 20px;
+  }
+
+  .metrics-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .problem-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .loop-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .mastery-states-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .telemetry-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* Mobile Breakpoint (<= 768px) */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero-headline {
+    font-size: 44px;
+  }
+
+  .why-cursive {
+    font-size: 60px;
+  }
+
+  .hero-subhead-cursive {
+    font-size: 18px;
+  }
+
+  .metrics-container {
+    grid-template-columns: 1fr;
+  }
+
+  .mastery-states-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .telemetry-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .remediation-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .modal-dialog {
+    width: 95%;
+    padding: 20px;
+  }
+}
