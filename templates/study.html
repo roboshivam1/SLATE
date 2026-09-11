@@ -2,15 +2,7 @@
 {% block content %}
 <section class="panel">
   <h1>{{ doc.title }}</h1>
-  <h2>Your concept map</h2>
-  <div class="conceptmap">
-    {% for c in concept_map %}
-      <div class="node m-{{ c.mastery }}">
-        {{ c.name }}
-        <span class="mastery">{{ c.mastery }}</span>
-      </div>
-    {% endfor %}
-  </div>
+  {% include "partials/concept_map.html" %}
 </section>
 
 <section class="panel" id="question-area">

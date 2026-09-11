@@ -16,6 +16,7 @@ from learner import state as learner_state
 from tutor import questions as tutor
 from diagnose import classifier
 from diagnose.highlight import highlight
+from remediate import resolver
 
 app = FastAPI(title="SLATE")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -71,7 +72,8 @@ def study(request: Request, doc_id: int):
     return templates.TemplateResponse(
         request, "study.html",
         {"doc": doc, "concept_map": concept_map,
-         "concept": current, "question": question},
+         "concept": current, "question": question,
+         "summary": learner_state.summary(doc_id)},
     )
 
 
@@ -81,6 +83,7 @@ def answer(request: Request,
            question_text: str = Form(...),
            answer_text: str = Form(...)):
     d = classifier.diagnose(concept_id, question_text, answer_text)
+    learner_state.apply(concept_id, d)
 
     db.execute(
         "INSERT INTO attempts (concept_id, question_text, answer_text, "
@@ -93,8 +96,21 @@ def answer(request: Request,
     return templates.TemplateResponse(
         request, "partials/diagnosis.html",
         {"concept": concept, "question": question_text,
-         "answer": answer_text, "d": d},
+         "answer": answer_text, "d": d,
+         "concept_map": learner_state.map_for(concept["document_id"]),
+         "summary": learner_state.summary(concept["document_id"])},
     )
+
+
+@app.get("/remediation/{misconception_id}")
+def remediation(request: Request, misconception_id: int):
+    r = resolver.get_remediation(misconception_id)
+    if r:
+        m = db.one("SELECT concept_id FROM misconceptions WHERE id = ?", (misconception_id,))
+        if m:
+            learner_state.mark_remediated(m["concept_id"])
+    return templates.TemplateResponse(
+        request, "partials/remediation.html", {"r": r})
 
 
 @app.get("/debug/{doc_id}")

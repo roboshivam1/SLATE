@@ -32,6 +32,13 @@
     <p class="conf">confidence {{ d.confidence }}
       {%- if d.evidence_span %} · matched against your own words{% endif %}</p>
   </div>
+
+  <div hx-get="/remediation/{{ d.misconception_id }}"
+       hx-trigger="load" hx-swap="outerHTML">
+    <p class="muted htmx-indicator">preparing an explanation for this…</p>
+  </div>
 {% endif %}
 
 <p><a href="/study/{{ concept.document_id }}">Next question</a></p>
+
+{% with oob = true %}{% include "partials/concept_map.html" %}{% endwith %}

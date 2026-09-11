@@ -70,3 +70,19 @@ textarea { width: 100%; font: inherit; padding: .7rem; border-radius: 3px;
 .diagnosis.correct  { border-color: var(--m-mastered); }
 .diagnosis.unknown  { border-color: var(--m-shaky); }
 .conf { font-size: .78rem; color: var(--muted); margin-top: .6rem; }
+.remediation { margin: 1.2rem 0; padding: 1rem 1.2rem; background: #1e1c18;
+               border: 1px solid var(--line); border-radius: 3px; }
+.remediation video { width: 100%; border-radius: 3px; margin: .7rem 0 1rem;
+                     background: #000; }
+.contrast { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem;
+            margin-top: .7rem; }
+.side { padding: .8rem; border-radius: 3px; background: #232119;
+        border-left: 3px solid; }
+.wrong-side { border-color: var(--m-diagnosed); }
+.right-side { border-color: var(--m-mastered); }
+.side p { margin: .35rem 0 0; font-size: .93rem; }
+@media (max-width: 620px) { .contrast { grid-template-columns: 1fr; } }
+.maphead { display: flex; justify-content: space-between; align-items: baseline; }
+.node { transition: border-color .4s ease, background .4s ease; }
+#concept-map .node { animation: settle .5s ease; }
+@keyframes settle { from { background: #2a2620; } to { background: #201e1a; } }
