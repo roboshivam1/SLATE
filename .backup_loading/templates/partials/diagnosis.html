@@ -1,4 +1,3 @@
-{% set r = round | default(0) %}
 <!-- PARTIAL: DIAGNOSIS RESULT (HERO MOMENT) -->
 <section class="lab-card diagnosis-container" id="diagnosis-card">
   <div class="lab-card-header">
@@ -39,21 +38,21 @@
 
     {% if diagnosis.is_correct %}
       <div class="misconception-banner" style="border-color: var(--state-mastered-border); background: var(--state-mastered-bg);">
-        <div class="misconception-tag" style="color: var(--state-mastered);">
+        <div class="misconception-tag tag-correct">
           <span>&check;</span> SOUND REASONING
         </div>
         <h3 class="misconception-title">No misconception found in this explanation.</h3>
       </div>
     {% elif diagnosis.is_unknown %}
       <div class="misconception-banner" style="border-color: var(--state-shaky-border); background: var(--state-shaky-bg);">
-        <div class="misconception-tag" style="color: var(--state-shaky);">
+        <div class="misconception-tag tag-unknown">
           <span>&sim;</span> UNRECOGNISED PATTERN
         </div>
         <h3 class="misconception-title">Something is off, but it is not a model SLATE holds content for.</h3>
       </div>
     {% else %}
       <div class="misconception-banner">
-        <div class="misconception-tag">
+        <div class="misconception-tag {% if diagnosis.is_tentative %}tag-tentative{% endif %}">
           <span>&bull;</span>
           {% if diagnosis.is_tentative %}POSSIBLE MISCONCEPTION{% else %}MISCONCEPTION DETECTED{% endif %}
         </div>
@@ -84,10 +83,9 @@
         <span class="lab-meta-mono" style="margin-right: auto;">TARGETED INTERVENTION PREPARED</span>
         <button
           class="btn-lab btn-lab-accent"
-          hx-get="/remediation/{{ diagnosis.misconception_id }}?round={{ r }}"
-          hx-target="#remediation-slot-{{ r }}"
-          hx-swap="innerHTML show:top"
-          hx-indicator="#rem-indicator-{{ r }}"
+          hx-get="/remediation/{{ diagnosis.misconception_id }}"
+          hx-target="#remediation-slot"
+          hx-swap="innerHTML"
         >
           See Targeted Explanation &rarr;
         </button>

@@ -84,8 +84,7 @@
 
     <nav class="nav-links" aria-label="Main Navigation">
       <a href="/" class="nav-link {% if request.url.path == '/' %}active{% endif %}">Upload</a>
-      {% if doc_id %}<a href="/study/{{ doc_id }}" class="nav-link {% if '/study' in request.url.path %}active{% endif %}">Workspace</a>
-      <a href="/notes/{{ doc_id }}" class="nav-link {% if '/notes' in request.url.path %}active{% endif %}">Notes</a>{% endif %}
+      {% if doc_id %}<a href="/study/{{ doc_id }}" class="nav-link {% if '/study' in request.url.path %}active{% endif %}">Workspace</a>{% endif %}
       
       <!-- TOP RIGHT THEME TOGGLE BUTTON -->
       <button 

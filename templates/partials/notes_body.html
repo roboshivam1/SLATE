@@ -1,0 +1,64 @@
+{% if not notes %}
+  <section class="lab-card">
+    <div class="lab-card-body">
+      <h2 class="lab-title-editorial" style="font-size:1.3rem;">Notes could not be generated.</h2>
+      <p style="color: var(--ink-secondary);">The concept map for this document may be empty.</p>
+    </div>
+  </section>
+{% else %}
+
+<section class="lab-card" style="margin-bottom: var(--space-6);">
+  <div class="lab-card-header">
+    <div class="lab-label-technical" style="color: var(--accent-electric);">WHERE TO FOCUS</div>
+    <span class="lab-meta-mono">COMPUTED FROM YOUR MASTERY STATE</span>
+  </div>
+  <div class="lab-card-body">
+    <h2 class="lab-title-editorial" style="font-size:1.4rem; margin-bottom: var(--space-3);">
+      {{ notes.headline }}
+    </h2>
+    <p style="font-size:1rem; line-height:1.7; color: var(--ink-secondary);">{{ notes.focus }}</p>
+  </div>
+</section>
+
+{% for s in notes.sections %}
+<section class="lab-card note-section depth-{{ s.depth }}" style="margin-bottom: var(--space-5);">
+  <div class="lab-card-header">
+    <div class="lab-label-technical">{{ s.name }}</div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span class="note-depth-tag depth-{{ s.depth }}">{{ s.depth | upper }}</span>
+      <span class="mastery-pill {{ s.mastery }}">{{ s.mastery | upper }}</span>
+    </div>
+  </div>
+  <div class="lab-card-body">
+    {% if s.misconception %}
+      <div class="note-misconception">
+        <span class="lab-meta-mono" style="color: var(--state-diagnosed);">
+          &cross; EXPANDED BECAUSE YOU WERE DIAGNOSED WITH THIS
+        </span>
+        <div style="margin-top:4px; font-weight:600;">{{ s.misconception.name }}</div>
+      </div>
+    {% endif %}
+
+    {% for para in s.body.split('\n\n') %}
+      {% if para.strip() %}<p class="note-para">{{ para.strip() }}</p>{% endif %}
+    {% endfor %}
+
+    {% if s.key_points %}
+      <ul class="note-points">
+        {% for k in s.key_points %}<li>{{ k }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</section>
+{% endfor %}
+
+<div class="lab-card" style="background: var(--bg-surface-inset); border: 1px dashed var(--border-graphite);">
+  <div class="lab-card-body" style="padding: var(--space-4);">
+    <span class="lab-meta-mono" style="color: var(--ink-muted);">
+      SECTION DEPTH IS COMPUTED IN CODE FROM YOUR MASTERY STATE, NOT CHOSEN BY THE MODEL.
+      ANSWER MORE QUESTIONS AND THIS DOCUMENT REWRITES ITSELF.
+    </span>
+  </div>
+</div>
+
+{% endif %}

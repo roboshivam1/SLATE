@@ -17,7 +17,6 @@ from tutor import questions as tutor
 from diagnose import classifier
 from diagnose.highlight import highlight
 from remediate import resolver
-from content import notes as content_notes
 
 app = FastAPI(title="SLATE")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -183,23 +182,6 @@ def retest(request: Request, misconception_id: int = Form(...),
             "next_round": round + 1,
         },
     )
-
-
-# ---------------------------------------------------------------- notes
-
-@app.get("/notes/{doc_id}")
-def notes_page(request: Request, doc_id: int):
-    doc = db.one("SELECT * FROM documents WHERE id = ?", (doc_id,))
-    return templates.TemplateResponse(
-        request, "notes.html",
-        {"doc": doc, "doc_id": doc_id, "summary": learner_state.summary(doc_id)})
-
-
-@app.get("/notes/{doc_id}/body")
-def notes_body(request: Request, doc_id: int):
-    n, _plan = content_notes.notes_for(doc_id)
-    return templates.TemplateResponse(
-        request, "partials/notes_body.html", {"notes": n, "doc_id": doc_id})
 
 
 # ---------------------------------------------------------------- debug

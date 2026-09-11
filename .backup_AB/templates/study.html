@@ -22,8 +22,11 @@
     </header>
 
     <div id="question-slot">
-      {% with round = 0 %}{% include "partials/question.html" %}{% endwith %}
+      {% include "partials/question.html" %}
     </div>
+
+    <div id="diagnosis-slot"></div>
+    <div id="remediation-slot"></div>
 
     {% else %}
     <section class="lab-card">
@@ -44,11 +47,6 @@
 
   <!-- TELEMETRY & CONCEPT MAP RAIL -->
   <aside class="telemetry-rail">
-
-    <a href="/notes/{{ doc.id }}" class="btn-lab btn-lab-accent"
-       style="width:100%; justify-content:center; margin-bottom: var(--space-4);">
-      Study Notes &rarr;
-    </a>
 
     <div id="concept-map-slot">
       {% include "partials/concept_map.html" %}

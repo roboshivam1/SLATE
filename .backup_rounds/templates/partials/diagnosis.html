@@ -1,4 +1,3 @@
-{% set r = round | default(0) %}
 <!-- PARTIAL: DIAGNOSIS RESULT (HERO MOMENT) -->
 <section class="lab-card diagnosis-container" id="diagnosis-card">
   <div class="lab-card-header">
@@ -84,10 +83,10 @@
         <span class="lab-meta-mono" style="margin-right: auto;">TARGETED INTERVENTION PREPARED</span>
         <button
           class="btn-lab btn-lab-accent"
-          hx-get="/remediation/{{ diagnosis.misconception_id }}?round={{ r }}"
-          hx-target="#remediation-slot-{{ r }}"
-          hx-swap="innerHTML show:top"
-          hx-indicator="#rem-indicator-{{ r }}"
+          hx-get="/remediation/{{ diagnosis.misconception_id }}"
+          hx-target="#remediation-slot"
+          hx-swap="innerHTML"
+          hx-indicator="#rem-indicator"
         >
           See Targeted Explanation &rarr;
         </button>

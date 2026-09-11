@@ -22,7 +22,23 @@
     </header>
 
     <div id="question-slot">
-      {% with round = 0 %}{% include "partials/question.html" %}{% endwith %}
+      {% include "partials/question.html" %}
+    </div>
+
+    <div id="diagnosis-slot"></div>
+
+    <div id="rem-indicator" class="slate-loading" role="status" aria-live="polite">
+      <span class="pulse-label">BUILDING TARGETED EXPLANATION</span>
+      <div class="pulse-track"><div class="pulse-indicator-node"></div></div>
+      <span class="lab-meta-mono" style="font-size: 0.65rem;">DRAWING ILLUSTRATION</span>
+    </div>
+
+    <div id="remediation-slot"></div>
+
+    <div id="retest-indicator" class="slate-loading" role="status" aria-live="polite">
+      <span class="pulse-label">COMPOSING TARGETED RETEST</span>
+      <div class="pulse-track"><div class="pulse-indicator-node"></div></div>
+      <span class="lab-meta-mono" style="font-size: 0.65rem;">AIMING AT DIAGNOSED GAP</span>
     </div>
 
     {% else %}
@@ -44,11 +60,6 @@
 
   <!-- TELEMETRY & CONCEPT MAP RAIL -->
   <aside class="telemetry-rail">
-
-    <a href="/notes/{{ doc.id }}" class="btn-lab btn-lab-accent"
-       style="width:100%; justify-content:center; margin-bottom: var(--space-4);">
-      Study Notes &rarr;
-    </a>
 
     <div id="concept-map-slot">
       {% include "partials/concept_map.html" %}

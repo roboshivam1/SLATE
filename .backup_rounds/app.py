@@ -17,7 +17,6 @@ from tutor import questions as tutor
 from diagnose import classifier
 from diagnose.highlight import highlight
 from remediate import resolver
-from content import notes as content_notes
 
 app = FastAPI(title="SLATE")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -105,7 +104,6 @@ def answer(
     question_text: str = Form(...),
     explanation: str = Form(...),
     is_retest: int = Form(0),
-    round: int = Form(0),
 ):
     d = classifier.diagnose(concept_id, question_text, explanation)
     learner_state.apply(concept_id, d, is_retest=bool(is_retest))
@@ -131,7 +129,6 @@ def answer(
             "concept_map": _map(doc_id, updated_id=concept_id),
             "summary": learner_state.summary(doc_id),
             "doc_id": doc_id,
-            "round": round,
         },
     )
 
@@ -139,8 +136,7 @@ def answer(
 # ---------------------------------------------------------------- remediation
 
 @app.get("/remediation/{misconception_id}")
-def remediation(request: Request, misconception_id: int,
-                mode: str | None = None, round: int = 0):
+def remediation(request: Request, misconception_id: int, mode: str | None = None):
     r = resolver.get_remediation(misconception_id, force=mode)
     concept, doc_id = None, None
 
@@ -157,16 +153,14 @@ def remediation(request: Request, misconception_id: int,
         request,
         "partials/remediation.html",
         {"remediation": r, "concept": concept,
-         "misconception_id": misconception_id, "doc_id": doc_id,
-         "round": round},
+         "misconception_id": misconception_id, "doc_id": doc_id},
     )
 
 
 # ---------------------------------------------------------------- retest
 
 @app.post("/retest")
-def retest(request: Request, misconception_id: int = Form(...),
-           round: int = Form(0)):
+def retest(request: Request, misconception_id: int = Form(...)):
     m = db.one("SELECT * FROM misconceptions WHERE id = ?", (misconception_id,))
     concept = db.one("SELECT * FROM concepts WHERE id = ?", (m["concept_id"],))
     question = tutor.retest_question_for(m["concept_id"], misconception_id)
@@ -179,27 +173,8 @@ def retest(request: Request, misconception_id: int = Form(...),
             "question": question,
             "misconception": m,
             "doc_id": concept["document_id"],
-            "round": round,
-            "next_round": round + 1,
         },
     )
-
-
-# ---------------------------------------------------------------- notes
-
-@app.get("/notes/{doc_id}")
-def notes_page(request: Request, doc_id: int):
-    doc = db.one("SELECT * FROM documents WHERE id = ?", (doc_id,))
-    return templates.TemplateResponse(
-        request, "notes.html",
-        {"doc": doc, "doc_id": doc_id, "summary": learner_state.summary(doc_id)})
-
-
-@app.get("/notes/{doc_id}/body")
-def notes_body(request: Request, doc_id: int):
-    n, _plan = content_notes.notes_for(doc_id)
-    return templates.TemplateResponse(
-        request, "partials/notes_body.html", {"notes": n, "doc_id": doc_id})
 
 
 # ---------------------------------------------------------------- debug

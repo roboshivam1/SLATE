@@ -83,65 +83,11 @@ r = c.post("/answer", data={"concept_id": cids[0], "question_text": "Q?",
                             "explanation": STUDENT, "is_retest": 0})
 check("evidence <mark>", r, ["<mark class=\"evidence-mark\">if I just throw facts in a file</mark>"])
 
-# stub the illustrator so no API call happens
-import content.illustrate as ill
-FAKE_SVG = ('<svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">'
-            '<rect x="10" y="10" width="330" height="340" fill="none" '
-            'stroke="var(--state-diagnosed)"/>'
-            '<text x="20" y="40" fill="var(--ink-primary)">Your model</text></svg>')
-ill._generate_svg = lambda *a, **k: ill.sanitize(FAKE_SVG)
-
-check("GET /remediation [svg rung]", c.get(f"/remediation/{mis_id}"),
-      ["slate-illustration", "TARGETED REMEDIATION", "ILLUSTRATION"])
-check("GET /remediation?mode=svg", c.get(f"/remediation/{mis_id}?mode=svg"),
-      ["slate-illustration"])
-check("GET /remediation [card]", c.get(f"/remediation/{mis_id}?mode=card"),
-      ["YOUR CURRENT MODEL", "TEXT MODEL", "Retest Me"])
-r2 = c.post("/retest", data={"misconception_id": mis_id, "round": 0})
-check("POST /retest", r2,
-      ["TARGETED RETEST", "Submit Retest", 'name="is_retest" value="1"',
-       'name="round" value="1"', 'id="diagnosis-slot-1"', 'id="retest-slot-1"',
-       'hx-target="#diagnosis-slot-1"'])
-assert 'id="diagnosis-slot-0"' not in r2.text, "round 1 must not re-declare round 0 slots"
-
-r3 = c.post("/answer", data={"concept_id": cids[0], "question_text": "Q2?",
-                             "explanation": STUDENT, "is_retest": 1, "round": 1})
-check("POST /answer [round 1]", r3, ['hx-target="#remediation-slot-1"',
-                                     'hx-indicator="#rem-indicator-1"'])
-check("GET /remediation [round 1]", c.get(f"/remediation/{mis_id}?round=1"),
-      ['hx-target="#retest-slot-1"', 'round=1'])
-import content.notes as cn
-import json as _json
-def fake_notes(doc_id, plan):
-    return _json.dumps({"headline": "Keys, and what makes one minimal",
-        "focus": "Start with super keys — you were diagnosed there.",
-        "sections": [{"concept_name": p["name"],
-                      "body": "First para.\n\nSecond para.",
-                      "key_points": ["point a", "point b"]} for p in plan]})
-cn._generate = fake_notes
-
-check("GET /notes page", c.get(f"/notes/{doc_id}"), ["ADAPTIVE STUDY NOTES", "notes-indicator"])
-rb = c.get(f"/notes/{doc_id}/body")
-check("GET /notes body", rb, ["WHERE TO FOCUS", "EXPANDED", "CONDENSED" if False else "STANDARD",
-                              "COMPUTED IN CODE FROM YOUR MASTERY STATE"])
-
-# depth plan must react to state: concept 0 is 'improving' after earlier steps
-plan = cn.build_plan(doc_id)
-print("   plan:", [(p["name"][:22], p["mastery"], p["depth"]) for p in plan])
-db.execute("UPDATE learner_state SET mastery='diagnosed', active_misconception_id=? WHERE concept_id=?", (mis_id, cids[0]))
-db.execute("UPDATE learner_state SET mastery='mastered' WHERE concept_id=?", (cids[1],))
-plan2 = cn.build_plan(doc_id)
-print("   plan after state change:", [(p["name"][:22], p["mastery"], p["depth"]) for p in plan2])
-assert plan2[0]["depth"] == "expanded" and plan2[0]["misconception"]
-assert plan2[1]["depth"] == "condensed"
-
-from content import artifacts as _art
-fp1 = _art.state_fingerprint(doc_id)
-db.execute("UPDATE learner_state SET mastery='shaky' WHERE concept_id=?", (cids[2],))
-assert _art.state_fingerprint(doc_id) != fp1, "fingerprint must change with state"
-print("   fingerprint changes with mastery state: ok")
-check("GET /notes body [regenerated]", c.get(f"/notes/{doc_id}/body"), ["EXPANDED BECAUSE YOU WERE DIAGNOSED"])
-
+check("GET /remediation", c.get(f"/remediation/{mis_id}"),
+      ["TARGETED REMEDIATION", "YOUR CURRENT MODEL", "STATIC MODEL", "Retest Me"])
+check("GET /remediation?mode=card", c.get(f"/remediation/{mis_id}?mode=card"), ["YOUR CURRENT MODEL"])
+check("POST /retest", c.post("/retest", data={"misconception_id": mis_id}),
+      ["TARGETED RETEST", "Submit Retest", 'name="is_retest" value="1"'])
 check("GET /debug", c.get(f"/debug/{doc_id}"), ["Misconception 0-0"])
 check("GET /health", c.get("/health"))
 

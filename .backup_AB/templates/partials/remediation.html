@@ -1,5 +1,4 @@
 <!-- PARTIAL: REMEDIATION (DUAL-MODE WITH IDENTICAL ZERO-SHIFT STAGE) -->
-{% set r = round | default(0) %}
 {% if remediation %}
 <section class="lab-card remediation-slot-wrapper" id="remediation-card">
   <div class="lab-card-header">
@@ -12,39 +11,24 @@
       {% if remediation.has_clip %}
       <button
         class="toggle-btn {% if remediation.kind == 'clip' %}active{% endif %}"
-        hx-get="/remediation/{{ misconception_id }}?mode=clip&round={{ r }}"
-        hx-target="#remediation-slot-{{ r }}"
+        hx-get="/remediation/{{ misconception_id }}?mode=clip"
+        hx-target="#remediation-slot"
         hx-swap="innerHTML"
-        hx-indicator="#rem-indicator-{{ r }}"
         role="tab"
         aria-selected="{% if remediation.kind == 'clip' %}true{% else %}false{% endif %}"
       >
         VIDEO CLIP
       </button>
       {% endif %}
-      {% if remediation.has_svg %}
       <button
-        class="toggle-btn {% if remediation.kind == 'svg' %}active{% endif %}"
-        hx-get="/remediation/{{ misconception_id }}?mode=svg&round={{ r }}"
-        hx-target="#remediation-slot-{{ r }}"
+        class="toggle-btn {% if remediation.kind != 'clip' %}active{% endif %}"
+        hx-get="/remediation/{{ misconception_id }}?mode=card"
+        hx-target="#remediation-slot"
         hx-swap="innerHTML"
-        hx-indicator="#rem-indicator-{{ r }}"
         role="tab"
-        aria-selected="{% if remediation.kind == 'svg' %}true{% else %}false{% endif %}"
+        aria-selected="{% if remediation.kind != 'clip' %}true{% else %}false{% endif %}"
       >
-        ILLUSTRATION
-      </button>
-      {% endif %}
-      <button
-        class="toggle-btn {% if remediation.kind == 'card' %}active{% endif %}"
-        hx-get="/remediation/{{ misconception_id }}?mode=card&round={{ r }}"
-        hx-target="#remediation-slot-{{ r }}"
-        hx-swap="innerHTML"
-        hx-indicator="#rem-indicator-{{ r }}"
-        role="tab"
-        aria-selected="{% if remediation.kind == 'card' %}true{% else %}false{% endif %}"
-      >
-        TEXT MODEL
+        STATIC MODEL
       </button>
     </div>
   </div>
@@ -52,15 +36,7 @@
   <div class="lab-card-body">
     <!-- IDENTICAL 380px VISUAL SLOT (ZERO LAYOUT JUMP) -->
     <div class="remediation-stage">
-      {% if remediation.kind == 'svg' and remediation.svg %}
-        <!-- RUNG 2: TARGETED ILLUSTRATION -->
-        <figure class="remediation-illustration">
-          {{ remediation.svg | safe }}
-          <figcaption class="lab-meta-mono">
-            GENERATED FOR THIS MISCONCEPTION &bull; NOT A SUMMARY OF THE DOCUMENT
-          </figcaption>
-        </figure>
-      {% elif remediation.kind == 'clip' and remediation.clip_url %}
+      {% if remediation.kind == 'clip' and remediation.clip_url %}
         <!-- MODE 1: VIDEO CLIP -->
         <video 
           class="remediation-video-player" 
@@ -114,10 +90,9 @@
       <button
         class="btn-lab btn-lab-accent"
         hx-post="/retest"
-        hx-vals='{"misconception_id": "{{ misconception_id }}", "round": "{{ r }}"}'
-        hx-target="#retest-slot-{{ r }}"
-        hx-swap="innerHTML show:top"
-        hx-indicator="#retest-indicator-{{ r }}"
+        hx-vals='{"misconception_id": "{{ misconception_id }}"}'
+        hx-target="#retest-slot"
+        hx-swap="innerHTML"
       >
         Retest Me &rarr;
       </button>
@@ -126,3 +101,6 @@
 </section>
 
 {% endif %}
+
+<!-- RETEST CONTAINER MOUNT POINT -->
+<div id="retest-slot" style="margin-top: var(--space-6);"></div>

@@ -1,0 +1,55 @@
+<!-- PARTIAL: QUESTION FORM -->
+<section class="lab-card" id="question-card">
+  <div class="lab-card-header">
+    <div class="lab-label-technical">
+      {% if is_retest %}TARGETED RETEST // PROMPT 02{% else %}CONCEPT ASSESSMENT // PROMPT 01{% endif %}
+    </div>
+    <span class="lab-meta-mono">TARGET: {{ concept.name | upper }}</span>
+  </div>
+
+  <div class="lab-card-body">
+    <h2 class="question-prompt-text">{{ question }}</h2>
+
+    <form
+      id="answer-form"
+      hx-post="/answer"
+      hx-target="#diagnosis-slot"
+      hx-swap="innerHTML"
+      hx-indicator="#analyzing-indicator"
+    >
+      <input type="hidden" name="concept_id" value="{{ concept.id }}">
+      <input type="hidden" name="question_text" value="{{ question }}">
+      <input type="hidden" name="is_retest" value="{{ 1 if is_retest else 0 }}">
+
+      <div style="margin-bottom: var(--space-4);">
+        <label for="student-explanation" class="lab-meta-mono" style="display: block; margin-bottom: 6px; font-weight: 600;">
+          YOUR EXPLANATION (EXPRESS YOUR MENTAL MODEL CLEARLY):
+        </label>
+        <textarea
+          id="student-explanation"
+          name="explanation"
+          class="explanation-textarea"
+          rows="4"
+          required
+          placeholder="Explain your reasoning in 2-4 sentences, in your own words."
+        ></textarea>
+      </div>
+
+      <!-- ANIMATION 4: THINKING PULSE -->
+      <div id="analyzing-indicator" class="thinking-pulse" role="status" aria-live="polite">
+        <span class="pulse-label">ANALYZING RESPONSE</span>
+        <div class="pulse-track">
+          <div class="pulse-indicator-node"></div>
+        </div>
+        <span class="lab-meta-mono" style="font-size: 0.65rem;">PARSING COGNITIVE SYNTAX</span>
+      </div>
+
+      <div class="lab-card-footer" style="margin-top: var(--space-4); padding-left: 0; padding-right: 0; background: transparent; border-top: 1px solid var(--border-hairline);">
+        <span class="lab-meta-mono" style="margin-right: auto;">EVALUATION: PARSE &bull; DIAGNOSE &bull; RETEST</span>
+        <button type="submit" class="btn-lab btn-lab-accent" id="diagnose-submit-btn">
+          {% if is_retest %}Submit Retest{% else %}Diagnose Mental Model{% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

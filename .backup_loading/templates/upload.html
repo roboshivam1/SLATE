@@ -34,8 +34,7 @@
               SUPPORTED FORMATS: PDF, MARKDOWN, LATEX, TXT (MAX 25MB)
             </div>
           </div>
-          <input type="file" id="material-file" name="file" accept="application/pdf" class="upload-input-hidden">
-          <div class="upload-selected-file" id="selected-file" hidden></div>
+          <input type="file" id="material-file" name="file" class="upload-input-hidden" onchange="document.getElementById('upload-form').submit();">
         </label>
       </div>
 
@@ -72,56 +71,4 @@
 
   </div>
 </div>
-
-<!-- INGESTION OVERLAY: upload is a 20-60s synchronous round trip -->
-<div id="ingest-overlay" role="status" aria-live="polite">
-  <div class="ingest-doc" id="ingest-doc-name">PROCESSING DOCUMENT</div>
-  <div class="ingest-bar"><span></span></div>
-  <div class="ingest-stage" id="ingest-stage">Reading the document…</div>
-  <div class="ingest-note">This runs once per document. Extraction takes up to a minute.</div>
-</div>
-
-<script>
-(function () {
-  var form  = document.getElementById('upload-form');
-  var input = document.getElementById('material-file');
-  var label = document.getElementById('selected-file');
-  if (!form || !input) return;
-
-  var STAGES = [
-    'Reading the document…',
-    'Identifying the concepts a learner must master…',
-    'Working out how students get each one wrong…',
-    'Building the closed misconception set…',
-    'Almost there — writing the concept map…'
-  ];
-
-  function showOverlay(name) {
-    var overlay = document.getElementById('ingest-overlay');
-    var docName = document.getElementById('ingest-doc-name');
-    var stage   = document.getElementById('ingest-stage');
-    if (name && docName) docName.textContent = name.toUpperCase();
-    overlay.classList.add('visible');
-    var i = 0;
-    setInterval(function () {
-      i = (i + 1) % STAGES.length;
-      stage.textContent = STAGES[i];
-    }, 4200);
-  }
-
-  input.addEventListener('change', function () {
-    if (!input.files.length) return;
-    var name = input.files[0].name;
-    label.hidden = false;
-    label.textContent = '\u2713 ' + name + ' \u2014 starting extraction';
-    showOverlay(name);
-    form.submit();
-  });
-
-  form.addEventListener('submit', function () {
-    var name = input.files.length ? input.files[0].name : null;
-    showOverlay(name);
-  });
-})();
-</script>
 {% endblock %}

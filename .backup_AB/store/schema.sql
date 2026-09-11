@@ -56,15 +56,3 @@ CREATE TABLE IF NOT EXISTS llm_cache (
 CREATE INDEX IF NOT EXISTS idx_concepts_doc ON concepts(document_id);
 CREATE INDEX IF NOT EXISTS idx_misc_concept ON misconceptions(concept_id);
 CREATE INDEX IF NOT EXISTS idx_attempts_concept ON attempts(concept_id);
-
-CREATE TABLE IF NOT EXISTS artifacts (
-    id                INTEGER PRIMARY KEY AUTOINCREMENT,
-    kind              TEXT NOT NULL,     -- notes | svg | audio
-    scope             TEXT NOT NULL,     -- document | concept | misconception
-    scope_id          INTEGER NOT NULL,
-    state_fingerprint TEXT NOT NULL DEFAULT '',
-    content           TEXT,
-    path              TEXT,
-    created_at        TEXT DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(kind, scope, scope_id, state_fingerprint)
-);

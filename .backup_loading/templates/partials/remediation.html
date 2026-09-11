@@ -1,5 +1,4 @@
 <!-- PARTIAL: REMEDIATION (DUAL-MODE WITH IDENTICAL ZERO-SHIFT STAGE) -->
-{% set r = round | default(0) %}
 {% if remediation %}
 <section class="lab-card remediation-slot-wrapper" id="remediation-card">
   <div class="lab-card-header">
@@ -12,10 +11,9 @@
       {% if remediation.has_clip %}
       <button
         class="toggle-btn {% if remediation.kind == 'clip' %}active{% endif %}"
-        hx-get="/remediation/{{ misconception_id }}?mode=clip&round={{ r }}"
-        hx-target="#remediation-slot-{{ r }}"
+        hx-get="/remediation/{{ misconception_id }}?mode=clip"
+        hx-target="#remediation-slot"
         hx-swap="innerHTML"
-        hx-indicator="#rem-indicator-{{ r }}"
         role="tab"
         aria-selected="{% if remediation.kind == 'clip' %}true{% else %}false{% endif %}"
       >
@@ -25,10 +23,9 @@
       {% if remediation.has_svg %}
       <button
         class="toggle-btn {% if remediation.kind == 'svg' %}active{% endif %}"
-        hx-get="/remediation/{{ misconception_id }}?mode=svg&round={{ r }}"
-        hx-target="#remediation-slot-{{ r }}"
+        hx-get="/remediation/{{ misconception_id }}?mode=svg"
+        hx-target="#remediation-slot"
         hx-swap="innerHTML"
-        hx-indicator="#rem-indicator-{{ r }}"
         role="tab"
         aria-selected="{% if remediation.kind == 'svg' %}true{% else %}false{% endif %}"
       >
@@ -37,10 +34,9 @@
       {% endif %}
       <button
         class="toggle-btn {% if remediation.kind == 'card' %}active{% endif %}"
-        hx-get="/remediation/{{ misconception_id }}?mode=card&round={{ r }}"
-        hx-target="#remediation-slot-{{ r }}"
+        hx-get="/remediation/{{ misconception_id }}?mode=card"
+        hx-target="#remediation-slot"
         hx-swap="innerHTML"
-        hx-indicator="#rem-indicator-{{ r }}"
         role="tab"
         aria-selected="{% if remediation.kind == 'card' %}true{% else %}false{% endif %}"
       >
@@ -114,10 +110,9 @@
       <button
         class="btn-lab btn-lab-accent"
         hx-post="/retest"
-        hx-vals='{"misconception_id": "{{ misconception_id }}", "round": "{{ r }}"}'
-        hx-target="#retest-slot-{{ r }}"
-        hx-swap="innerHTML show:top"
-        hx-indicator="#retest-indicator-{{ r }}"
+        hx-vals='{"misconception_id": "{{ misconception_id }}"}'
+        hx-target="#retest-slot"
+        hx-swap="innerHTML"
       >
         Retest Me &rarr;
       </button>
@@ -126,3 +121,6 @@
 </section>
 
 {% endif %}
+
+<!-- RETEST CONTAINER MOUNT POINT -->
+<div id="retest-slot" style="margin-top: var(--space-6);"></div>
