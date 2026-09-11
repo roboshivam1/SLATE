@@ -1,0 +1,53 @@
+<!-- PARTIAL: QUESTION FORM -->
+<section class="lab-card" id="question-card">
+  <div class="lab-card-header">
+    <div class="lab-label-technical">CONCEPT ASSESSMENT // PROMPT 01</div>
+    <span class="lab-meta-mono">TARGET: {{ concept.name | upper }}</span>
+  </div>
+
+  <div class="lab-card-body">
+    <h2 class="question-prompt-text">
+      Explain the chain rule in your own words.
+    </h2>
+
+    <form 
+      id="answer-form" 
+      hx-post="/answer" 
+      hx-target="#diagnosis-slot" 
+      hx-swap="innerHTML"
+      hx-indicator="#analyzing-indicator"
+    >
+      <input type="hidden" name="concept_id" value="{{ concept.id }}">
+
+      <div style="margin-bottom: var(--space-4);">
+        <label for="student-explanation" class="lab-meta-mono" style="display: block; margin-bottom: 6px; font-weight: 600;">
+          YOUR EXPLANATION (EXPRESS YOUR MENTAL MODEL CLEARLY):
+        </label>
+        <textarea 
+          id="student-explanation" 
+          name="explanation" 
+          class="explanation-textarea" 
+          rows="4" 
+          required
+          placeholder="Describe how the derivative of a composite function behaves and how you calculate it..."
+        >So I just multiplied the two derivatives together because that's how derivatives work.</textarea>
+      </div>
+
+      <!-- ANIMATION 4: THINKING PULSE (Precision instrument processing indicator) -->
+      <div id="analyzing-indicator" class="thinking-pulse" role="status" aria-live="polite">
+        <span class="pulse-label">ANALYZING RESPONSE</span>
+        <div class="pulse-track">
+          <div class="pulse-indicator-node"></div>
+        </div>
+        <span class="lab-meta-mono" style="font-size: 0.65rem;">PARSING COGNITIVE SYNTAX</span>
+      </div>
+
+      <div class="lab-card-footer" style="margin-top: var(--space-4); padding-left: 0; padding-right: 0; background: transparent; border-top: 1px solid var(--border-hairline);">
+        <span class="lab-meta-mono" style="margin-right: auto;">EVALUATION: PARSE &bull; DIAGNOSE &bull; RETEST</span>
+        <button type="submit" class="btn-lab btn-lab-accent" id="diagnose-submit-btn">
+          Diagnose Mental Model
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

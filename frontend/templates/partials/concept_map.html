@@ -1,0 +1,54 @@
+<!-- PARTIAL: CONCEPT MASTERY MAP (CLEAN CSS GRID, FIVE STATES) -->
+<div class="lab-card concept-map-container" id="concept-map-card">
+  <div class="lab-card-header">
+    <div class="lab-label-technical">CONCEPT MASTERY MAP</div>
+    <span class="lab-meta-mono">{{ concept_map | length }} NODES</span>
+  </div>
+
+  <div class="lab-card-body" style="padding: var(--space-4);">
+    <div class="concept-grid">
+      {% for item in concept_map %}
+        <div 
+          class="concept-item {% if concept and concept.id == item.id %}active{% endif %} {% if item.just_updated %}transitioning{% endif %}"
+          data-mastery="{{ item.mastery }}"
+          id="concept-node-{{ item.id }}"
+        >
+          <div class="concept-info">
+            <span class="concept-id-tag">C-0{{ item.id }}</span>
+            <span class="concept-name">{{ item.name }}</span>
+          </div>
+
+          <span class="mastery-pill {{ item.mastery }}">
+            {% if item.mastery == 'unseen' %}
+              &compfn; UNSEEN
+            {% elif item.mastery == 'shaky' %}
+              &sim; SHAKY
+            {% elif item.mastery == 'diagnosed' %}
+              &cross; DIAGNOSED
+            {% elif item.mastery == 'improving' %}
+              &nearr; IMPROVING
+            {% elif item.mastery == 'mastered' %}
+              &check; MASTERED
+            {% else %}
+              {{ item.mastery | upper }}
+            {% endif %}
+          </span>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- RESTRAINED STATE LEGEND -->
+    <div style="margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--border-hairline);">
+      <div class="lab-meta-mono" style="font-size: 0.65rem; color: var(--ink-muted); margin-bottom: 6px;">
+        MASTERY STATE PROGRESSION:
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+        <span class="mastery-pill unseen" style="font-size: 0.6rem; padding: 1px 5px;">UNSEEN</span>
+        <span class="mastery-pill shaky" style="font-size: 0.6rem; padding: 1px 5px;">SHAKY</span>
+        <span class="mastery-pill diagnosed" style="font-size: 0.6rem; padding: 1px 5px;">DIAGNOSED</span>
+        <span class="mastery-pill improving" style="font-size: 0.6rem; padding: 1px 5px;">IMPROVING</span>
+        <span class="mastery-pill mastered" style="font-size: 0.6rem; padding: 1px 5px;">MASTERED</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}SLATE — Workspace: {{ concept.name }}{% endblock %}
+
+{% block content %}
+<div class="lab-workspace">
+  <!-- MAIN WORKBENCH (LEFT / CENTER COLUMN) -->
+  <div class="workbench-main">
+    
+    <!-- ACTIVE CONCEPT HEADER -->
+    <header style="border-bottom: 1px solid var(--border-subtle); padding-bottom: var(--space-4);">
+      <div class="lab-label-technical">CURRENT INVESTIGATION</div>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 4px;">
+        <h1 class="lab-title-editorial" style="font-size: 2rem;">
+          {{ concept.name }}
+        </h1>
+        <span class="mastery-pill {{ concept.mastery }}">
+          CURRENT STATE: {{ concept.mastery | upper }}
+        </span>
+      </div>
+      <p style="color: var(--ink-secondary); font-size: 0.95rem; margin-top: 6px;">
+        Unit 3: Differential Calculus &bull; Composite Function Mapping &bull; Mental Model Protocol
+      </p>
+    </header>
+
+    <!-- STEP 1: QUESTION SLOT -->
+    <div id="question-slot">
+      {% include "partials/question.html" %}
+    </div>
+
+    <!-- STEP 2: DIAGNOSIS SLOT (REPLACED VIA HTMX POST /answer) -->
+    <div id="diagnosis-slot">
+      {% if show_diagnosis and diagnosis %}
+        {% include "partials/diagnosis.html" %}
+      {% endif %}
+    </div>
+
+    <!-- STEP 3: REMEDIATION SLOT (REPLACED VIA HTMX GET /remediation/{id}) -->
+    <div id="remediation-slot">
+      {% if show_remediation and remediation %}
+        {% include "partials/remediation.html" %}
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- TELEMETRY & CONCEPT MAP RAIL (RIGHT COLUMN) -->
+  <aside class="telemetry-rail">
+    
+    <!-- CONCEPT MASTERY MAP -->
+    <div id="concept-map-slot">
+      {% include "partials/concept_map.html" %}
+    </div>
+
+    <!-- SESSION TELEMETRY -->
+    <div class="lab-card">
+      <div class="lab-card-header">
+        <div class="lab-label-technical">SESSION TELEMETRY</div>
+        <span class="lab-meta-mono">REAL-TIME</span>
+      </div>
+      <div class="lab-card-body" style="padding: var(--space-4);">
+        <div class="telemetry-stat-row">
+          <span style="color: var(--ink-muted);">Cognitive Domain</span>
+          <span class="stat-metric">Calculus II</span>
+        </div>
+        <div class="telemetry-stat-row">
+          <span style="color: var(--ink-muted);">Evidence Extraction</span>
+          <span class="stat-metric" style="color: var(--accent-electric);">Active</span>
+        </div>
+        <div class="telemetry-stat-row">
+          <span style="color: var(--ink-muted);">Divergence Threshold</span>
+          <span class="stat-metric">&gt; 75% Confidence</span>
+        </div>
+        <div class="telemetry-stat-row">
+          <span style="color: var(--ink-muted);">Active Mental Models</span>
+          <span class="stat-metric">Composition vs Product</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT LOOP DIAGNOSTIC REFERENCE -->
+    <div class="lab-card" style="background: var(--bg-surface-inset); border: 1px dashed var(--border-graphite);">
+      <div class="lab-card-body" style="padding: var(--space-4);">
+        <div class="lab-meta-mono" style="font-weight: 700; color: var(--ink-primary); margin-bottom: 6px;">
+          THE SLATE COGNITIVE LOOP
+        </div>
+        <ol style="margin-left: 18px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-secondary); line-height: 1.8;">
+          <li>1. Explain in your own words</li>
+          <li>2. Evidence span extracted</li>
+          <li>3. Misconception diagnosed</li>
+          <li>4. Targeted model reconciliation</li>
+          <li>5. Retest &amp; update mastery</li>
+        </ol>
+      </div>
+    </div>
+
+  </aside>
+</div>
+{% endblock %}

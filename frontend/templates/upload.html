@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Learning Material — SLATE{% endblock %}
+
+{% block content %}
+<div class="lab-workspace lab-workspace-single">
+  <div class="upload-wrapper">
+    
+    <div class="upload-intro">
+      <div class="lab-label-technical" style="justify-content: center;">INTAKE CONSOLE // DOCUMENT ANALYSIS</div>
+      <h1 class="lab-title-editorial">Upload Learning Material</h1>
+      <p style="color: var(--ink-secondary); font-size: 1.05rem; line-height: 1.6; max-width: 580px; margin: 0 auto;">
+        Upload your learning material.<br>
+        SLATE will identify concepts and diagnose how you understand them.
+      </p>
+    </div>
+
+    <!-- CLEAN DROP-ZONE FORM -->
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="lab-card" id="upload-form">
+      <div class="lab-card-body" style="padding: var(--space-8);">
+        <label for="material-file" class="upload-dropzone">
+          <svg class="upload-icon-graphic" viewBox="0 0 24 24">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="12" y1="18" x2="12" y2="12"></line>
+            <line x1="9" y1="15" x2="12" y2="12"></line>
+            <line x1="15" y1="15" x2="12" y2="12"></line>
+          </svg>
+          <div>
+            <div style="font-weight: 600; font-size: 1.05rem; color: var(--ink-primary); margin-bottom: 4px;">
+              Select document or drag and drop file here
+            </div>
+            <div class="upload-specs">
+              SUPPORTED FORMATS: PDF, MARKDOWN, LATEX, TXT (MAX 25MB)
+            </div>
+          </div>
+          <input type="file" id="material-file" name="file" class="upload-input-hidden" onchange="document.getElementById('upload-form').submit();">
+        </label>
+      </div>
+
+      <div class="lab-card-footer" style="justify-content: space-between;">
+        <span class="lab-meta-mono">READY FOR EXTRACTION</span>
+        <button type="submit" class="btn-lab btn-lab-accent">
+          Process Document
+        </button>
+      </div>
+    </form>
+
+    <!-- PRE-LOADED CURRICULUM SAMPLE -->
+    <div class="upload-fixtures-box">
+      <div class="lab-label-technical" style="margin-bottom: var(--space-3);">OR SELECT AN ACTIVE LAB NOTEBOOK</div>
+      <ul class="fixtures-list">
+        <li>
+          <a href="/study/calculus-derivatives" class="fixture-link-item">
+            <div>
+              <strong>Calculus II — Composition & The Chain Rule</strong>
+              <div class="lab-meta-mono" style="margin-top: 2px;">3 Core Concepts &bull; Calculus Series &bull; Ready for diagnosis</div>
+            </div>
+            <span class="btn-lab btn-lab-outline" style="padding: 4px 10px; font-size: 0.7rem;">Enter Lab &rarr;</span>
+          </a>
+        </li>
+        <li>
+          <a href="/study/linear-algebra-eigenvalues" class="fixture-link-item" style="opacity: 0.75;">
+            <div>
+              <strong>Linear Algebra — Spectral Decomposition</strong>
+              <div class="lab-meta-mono" style="margin-top: 2px;">4 Core Concepts &bull; Vectors & Matrices &bull; In archive</div>
+            </div>
+            <span class="btn-lab btn-lab-outline" style="padding: 4px 10px; font-size: 0.7rem;">Archive</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

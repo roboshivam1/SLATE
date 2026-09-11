@@ -1,0 +1,61 @@
+<!-- PARTIAL: DIAGNOSIS RESULT (HERO MOMENT) -->
+<section class="lab-card diagnosis-container" id="diagnosis-card">
+  <div class="lab-card-header">
+    <div class="lab-label-technical" style="color: var(--state-diagnosed);">
+      DIAGNOSIS VERIFIED // COGNITIVE DIVERGENCE IDENTIFIED
+    </div>
+    <span class="lab-meta-mono">EVIDENCE ANCHOR // EXACT MATCH</span>
+  </div>
+
+  <div class="lab-card-body">
+    <!-- STUDENT EVIDENCE BOX (PROMINENT, TEXTBOOK ANNOTATION) -->
+    <div class="student-evidence-box">
+      <blockquote class="student-quote-text">
+        &ldquo;{{ highlighted_explanation | safe }}&rdquo;
+      </blockquote>
+      <div style="margin-top: 8px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-muted);">
+        &uarr; SLATE detected the divergent mental model directly from this phrasing.
+      </div>
+    </div>
+
+    <!-- MISCONCEPTION IDENTIFIED -->
+    <div class="misconception-banner">
+      <div class="misconception-tag">
+        <span>&bull;</span> MISCONCEPTION DETECTED
+      </div>
+      <h3 class="misconception-title">
+        {{ diagnosis.misconception_name }}
+      </h3>
+    </div>
+
+    <!-- WHY WE THINK THIS -->
+    <div class="diagnosis-reasoning">
+      <div class="reasoning-label">WHY WE THINK THIS (OBSERVED COGNITIVE MODEL)</div>
+      <p class="reasoning-text">
+        {{ diagnosis.narration }}
+      </p>
+    </div>
+
+    <!-- DIAGNOSTIC CONFIDENCE GAUGE -->
+    <div class="confidence-gauge-group" style="--confidence-percent: {{ (diagnosis.confidence * 100) | int }}%;">
+      <div class="confidence-label">DIAGNOSTIC CONFIDENCE</div>
+      <div class="confidence-bar-track" aria-label="Confidence gauge {{ (diagnosis.confidence * 100) | int }}%">
+        <div class="confidence-bar-fill"></div>
+      </div>
+      <div class="confidence-value">{{ (diagnosis.confidence * 100) | int }}%</div>
+    </div>
+
+    <!-- RECTIFICATION CALL TO ACTION -->
+    <div class="lab-card-footer" style="padding: var(--space-4) 0 0 0; background: transparent; border-top: 1px solid var(--border-hairline);">
+      <span class="lab-meta-mono" style="margin-right: auto;">TARGETED INTERVENTION PREPARED</span>
+      <button 
+        class="btn-lab btn-lab-accent"
+        hx-get="/remediation/{{ concept.id if concept else 1 }}"
+        hx-target="#remediation-slot"
+        hx-swap="innerHTML"
+      >
+        See Targeted Explanation &rarr;
+      </button>
+    </div>
+  </div>
+</section>
