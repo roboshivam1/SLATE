@@ -15,5 +15,5 @@ def highlight(answer: str, span: str) -> Markup:
         return Markup(escape(answer))
     a, b = match.span()
     return Markup(
-        f"{escape(answer[:a])}<mark>{escape(answer[a:b])}</mark>{escape(answer[b:])}"
+        f"{escape(answer[:a])}<mark class=\"evidence-mark\">{escape(answer[a:b])}</mark>{escape(answer[b:])}"
     )

@@ -1,0 +1,20 @@
+<div class="remediation">
+  <span class="label">Targeted explanation</span>
+
+  {% if r.kind == "clip" %}
+    <video src="{{ r.clip_url }}" controls autoplay muted playsinline></video>
+  {% endif %}
+
+  <div class="contrast">
+    <div class="side wrong-side">
+      <span class="label">What you're thinking</span>
+      <p>{{ r.wrong_model }}</p>
+    </div>
+    <div class="side right-side">
+      <span class="label">What's actually true</span>
+      <p>{{ r.correct_model }}</p>
+    </div>
+  </div>
+
+  {% if r.description %}<p class="muted">{{ r.description }}</p>{% endif %}
+</div>

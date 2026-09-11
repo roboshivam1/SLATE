@@ -1440,16 +1440,3 @@ mark.evidence-mark {
     font-size: 1.25rem;
   }
 }
-
-/* Diagnosis banner variants (correct / unrecognised) */
-.misconception-tag.tag-correct {
-  color: var(--state-mastered);
-  background: var(--state-mastered-bg);
-  border-color: var(--state-mastered-border);
-}
-.misconception-tag.tag-unknown,
-.misconception-tag.tag-tentative {
-  color: var(--state-shaky);
-  background: var(--state-shaky-bg);
-  border-color: var(--state-shaky-border);
-}

@@ -79,12 +79,12 @@
         <span class="status-beacon"></span>
         <span>LAB ENGINE : ACTIVE</span>
       </div>
-      {% if doc %}<span class="lab-meta-mono" style="opacity: 0.6;">DOC: {{ doc.title[:38] | upper }}</span>{% endif %}
+      <span class="lab-meta-mono" style="opacity: 0.6;">DOC: CALCULUS-II // DERIVATIVES</span>
     </div>
 
     <nav class="nav-links" aria-label="Main Navigation">
-      <a href="/" class="nav-link {% if request.url.path == '/' %}active{% endif %}">Upload</a>
-      {% if doc_id %}<a href="/study/{{ doc_id }}" class="nav-link {% if '/study' in request.url.path %}active{% endif %}">Workspace</a>{% endif %}
+      <a href="/" class="nav-link {% if request.path == '/' %}active{% endif %}">Upload</a>
+      <a href="/study/calculus-derivatives" class="nav-link {% if request.path.startswith('/study') %}active{% endif %}">Workspace</a>
       
       <!-- TOP RIGHT THEME TOGGLE BUTTON -->
       <button 

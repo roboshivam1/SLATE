@@ -1,57 +1,58 @@
 {% extends "base.html" %}
 
-{% block title %}SLATE — Workspace: {{ concept.name if concept else doc.title }}{% endblock %}
+{% block title %}SLATE — Workspace: {{ concept.name }}{% endblock %}
 
 {% block content %}
 <div class="lab-workspace">
-  <!-- MAIN WORKBENCH -->
+  <!-- MAIN WORKBENCH (LEFT / CENTER COLUMN) -->
   <div class="workbench-main">
-
-    {% if concept %}
+    
+    <!-- ACTIVE CONCEPT HEADER -->
     <header style="border-bottom: 1px solid var(--border-subtle); padding-bottom: var(--space-4);">
       <div class="lab-label-technical">CURRENT INVESTIGATION</div>
-      <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 4px; gap: var(--space-4);">
-        <h1 class="lab-title-editorial" style="font-size: 2rem;">{{ concept.name }}</h1>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 4px;">
+        <h1 class="lab-title-editorial" style="font-size: 2rem;">
+          {{ concept.name }}
+        </h1>
         <span class="mastery-pill {{ concept.mastery }}">
           CURRENT STATE: {{ concept.mastery | upper }}
         </span>
       </div>
       <p style="color: var(--ink-secondary); font-size: 0.95rem; margin-top: 6px;">
-        {{ concept.summary }}
+        Unit 3: Differential Calculus &bull; Composite Function Mapping &bull; Mental Model Protocol
       </p>
     </header>
 
+    <!-- STEP 1: QUESTION SLOT -->
     <div id="question-slot">
       {% include "partials/question.html" %}
     </div>
 
-    <div id="diagnosis-slot"></div>
-    <div id="remediation-slot"></div>
+    <!-- STEP 2: DIAGNOSIS SLOT (REPLACED VIA HTMX POST /answer) -->
+    <div id="diagnosis-slot">
+      {% if show_diagnosis and diagnosis %}
+        {% include "partials/diagnosis.html" %}
+      {% endif %}
+    </div>
 
-    {% else %}
-    <section class="lab-card">
-      <div class="lab-card-header">
-        <div class="lab-label-technical">EXTRACTION INCOMPLETE</div>
-      </div>
-      <div class="lab-card-body">
-        <h2 class="lab-title-editorial" style="font-size: 1.4rem;">No concepts were extracted from this document.</h2>
-        <p style="color: var(--ink-secondary);">
-          The source may be a scanned PDF with no text layer. Try another document.
-        </p>
-        <a href="/" class="btn-lab btn-lab-outline" style="margin-top: var(--space-4);">&larr; Back to intake</a>
-      </div>
-    </section>
-    {% endif %}
+    <!-- STEP 3: REMEDIATION SLOT (REPLACED VIA HTMX GET /remediation/{id}) -->
+    <div id="remediation-slot">
+      {% if show_remediation and remediation %}
+        {% include "partials/remediation.html" %}
+      {% endif %}
+    </div>
 
   </div>
 
-  <!-- TELEMETRY & CONCEPT MAP RAIL -->
+  <!-- TELEMETRY & CONCEPT MAP RAIL (RIGHT COLUMN) -->
   <aside class="telemetry-rail">
-
+    
+    <!-- CONCEPT MASTERY MAP -->
     <div id="concept-map-slot">
       {% include "partials/concept_map.html" %}
     </div>
 
+    <!-- SESSION TELEMETRY -->
     <div class="lab-card">
       <div class="lab-card-header">
         <div class="lab-label-technical">SESSION TELEMETRY</div>
@@ -59,12 +60,8 @@
       </div>
       <div class="lab-card-body" style="padding: var(--space-4);">
         <div class="telemetry-stat-row">
-          <span style="color: var(--ink-muted);">Source Document</span>
-          <span class="stat-metric">{{ doc.page_count }} pp</span>
-        </div>
-        <div class="telemetry-stat-row">
-          <span style="color: var(--ink-muted);">Concepts Extracted</span>
-          <span class="stat-metric">{{ summary.total }}</span>
+          <span style="color: var(--ink-muted);">Cognitive Domain</span>
+          <span class="stat-metric">Calculus II</span>
         </div>
         <div class="telemetry-stat-row">
           <span style="color: var(--ink-muted);">Evidence Extraction</span>
@@ -72,22 +69,27 @@
         </div>
         <div class="telemetry-stat-row">
           <span style="color: var(--ink-muted);">Divergence Threshold</span>
-          <span class="stat-metric">&gt; 60% Confidence</span>
+          <span class="stat-metric">&gt; 75% Confidence</span>
+        </div>
+        <div class="telemetry-stat-row">
+          <span style="color: var(--ink-muted);">Active Mental Models</span>
+          <span class="stat-metric">Composition vs Product</span>
         </div>
       </div>
     </div>
 
+    <!-- PRODUCT LOOP DIAGNOSTIC REFERENCE -->
     <div class="lab-card" style="background: var(--bg-surface-inset); border: 1px dashed var(--border-graphite);">
       <div class="lab-card-body" style="padding: var(--space-4);">
         <div class="lab-meta-mono" style="font-weight: 700; color: var(--ink-primary); margin-bottom: 6px;">
           THE SLATE COGNITIVE LOOP
         </div>
         <ol style="margin-left: 18px; font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-secondary); line-height: 1.8;">
-          <li>Explain in your own words</li>
-          <li>Evidence span extracted</li>
-          <li>Misconception diagnosed</li>
-          <li>Targeted model reconciliation</li>
-          <li>Retest &amp; update mastery</li>
+          <li>1. Explain in your own words</li>
+          <li>2. Evidence span extracted</li>
+          <li>3. Misconception diagnosed</li>
+          <li>4. Targeted model reconciliation</li>
+          <li>5. Retest &amp; update mastery</li>
         </ol>
       </div>
     </div>

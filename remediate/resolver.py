@@ -11,7 +11,7 @@ from store import db
 CLIPS = Path("static/clips")
 
 
-def get_remediation(misconception_id: int) -> dict | None:
+def get_remediation(misconception_id: int, force: str | None = None) -> dict | None:
     m = db.one("SELECT * FROM misconceptions WHERE id = ?", (misconception_id,))
     if not m:
         return None
@@ -25,7 +25,13 @@ def get_remediation(misconception_id: int) -> dict | None:
     }
 
     clip = CLIPS / f"{m['slug']}.mp4"
-    if clip.exists() and clip.stat().st_size > 0:
-        return {**base, "kind": "clip", "clip_url": f"/static/clips/{m['slug']}.mp4"}
+    has_clip = clip.exists() and clip.stat().st_size > 0
+    base["has_clip"] = has_clip
 
+    # `force` comes from the UI toggle so a judge can see both rungs of the
+    # fallback ladder on demand. It can never conjure a clip that isn't there.
+    if force == "card":
+        return {**base, "kind": "card"}
+    if has_clip:
+        return {**base, "kind": "clip", "clip_url": f"/static/clips/{m['slug']}.mp4"}
     return {**base, "kind": "card"}

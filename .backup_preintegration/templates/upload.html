@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>Upload study material</h1>
+  <p class="muted">A PDF. One document at a time.</p>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="application/pdf" required>
+    <button type="submit">Ingest</button>
+  </form>
+</section>
+
+{% if documents %}
+<section class="panel">
+  <h2>Recent</h2>
+  <ul class="doclist">
+    {% for d in documents %}
+      <li><a href="/study/{{ d.id }}">{{ d.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}

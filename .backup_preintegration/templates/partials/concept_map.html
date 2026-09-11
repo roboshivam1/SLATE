@@ -1,0 +1,14 @@
+<div id="concept-map" {% if oob %}hx-swap-oob="true"{% endif %}>
+  <div class="maphead">
+    <h2>Your concept map</h2>
+    <span class="muted">{{ summary.mastered }} / {{ summary.total }} mastered</span>
+  </div>
+  <div class="conceptmap">
+    {% for c in concept_map %}
+      <div class="node m-{{ c.mastery }}">
+        {{ c.name }}
+        <span class="mastery">{{ c.mastery }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>

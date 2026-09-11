@@ -15,7 +15,15 @@ known wrong mental models. Decide which ONE the student's answer reveals.
 
 Rules:
 - Return the `slug` of exactly one listed misconception, OR "correct" if the
-  answer is sound, OR "unknown" if it is wrong in a way not on the list.
+  answer is sound, OR "unknown" ONLY as a last resort.
+- Match on the BELIEF the answer expresses, not on whether it addressed the
+  question asked. A student who answers a different question, or answers in one
+  short line, is still revealing a mental model — diagnose that model.
+- A partial, vague or incomplete answer that leans toward a listed belief IS
+  that misconception, reported at lower confidence. Do not escalate to
+  "unknown" merely because the answer is thin.
+- Reserve "unknown" for an answer that is clearly wrong in a way genuinely
+  absent from the list, or that contains no reasoning at all.
 - `evidence_span` MUST be copied verbatim from the student's answer — the exact
   characters, not a paraphrase. This is the phrase that revealed the belief.
   For "correct", quote the phrase that shows they understand.

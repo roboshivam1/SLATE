@@ -45,13 +45,13 @@ def get(concept_id: int) -> dict:
             "attempts_count": 0, "active_misconception_id": None}
 
 
-def apply(concept_id: int, d: dict) -> str:
+def apply(concept_id: int, d: dict, is_retest: bool = False) -> str:
     """Transition mastery from a diagnosis. Pure logic — no LLM involved."""
     current = get(concept_id)
     was = current["mastery"]
 
     if d["is_correct"]:
-        # Getting it right after being diagnosed is the meaningful win.
+        # Correct on a retest after remediation is the meaningful win.
         new = "mastered"
         active = None
     elif d["is_unknown"] or d["is_tentative"]:

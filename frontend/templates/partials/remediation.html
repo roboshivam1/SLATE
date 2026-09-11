@@ -1,5 +1,4 @@
 <!-- PARTIAL: REMEDIATION (DUAL-MODE WITH IDENTICAL ZERO-SHIFT STAGE) -->
-{% if remediation %}
 <section class="lab-card remediation-slot-wrapper" id="remediation-card">
   <div class="lab-card-header">
     <div class="lab-label-technical">
@@ -8,10 +7,9 @@
     
     <!-- MODE SWITCHER (ALLOWS SWITCHING BETWEEN VIDEO AND STATIC NOTEBOOK CARD) -->
     <div class="remediation-mode-toggle" role="tablist" aria-label="Remediation Mode">
-      {% if remediation.has_clip %}
-      <button
+      <button 
         class="toggle-btn {% if remediation.kind == 'clip' %}active{% endif %}"
-        hx-get="/remediation/{{ misconception_id }}?mode=clip"
+        hx-get="/remediation/{{ concept.id if concept else 1 }}?mode=clip"
         hx-target="#remediation-slot"
         hx-swap="innerHTML"
         role="tab"
@@ -19,14 +17,13 @@
       >
         VIDEO CLIP
       </button>
-      {% endif %}
-      <button
-        class="toggle-btn {% if remediation.kind != 'clip' %}active{% endif %}"
-        hx-get="/remediation/{{ misconception_id }}?mode=card"
+      <button 
+        class="toggle-btn {% if remediation.kind == 'static' %}active{% endif %}"
+        hx-get="/remediation/{{ concept.id if concept else 1 }}?mode=static"
         hx-target="#remediation-slot"
         hx-swap="innerHTML"
         role="tab"
-        aria-selected="{% if remediation.kind != 'clip' %}true{% else %}false{% endif %}"
+        aria-selected="{% if remediation.kind == 'static' %}true{% else %}false{% endif %}"
       >
         STATIC MODEL
       </button>
@@ -87,10 +84,9 @@
     <!-- ACTION FOOTER: RETEST ME -->
     <div class="lab-card-footer" style="margin-top: var(--space-6); padding: var(--space-4) 0 0 0; background: transparent; border-top: 1px solid var(--border-hairline);">
       <span class="lab-meta-mono" style="margin-right: auto;">STAGE: REMEDIATION DELIVERED &bull; READY TO RETEST</span>
-      <button
+      <button 
         class="btn-lab btn-lab-accent"
         hx-post="/retest"
-        hx-vals='{"misconception_id": "{{ misconception_id }}"}'
         hx-target="#retest-slot"
         hx-swap="innerHTML"
       >
@@ -99,8 +95,6 @@
     </div>
   </div>
 </section>
-
-{% endif %}
 
 <!-- RETEST CONTAINER MOUNT POINT -->
 <div id="retest-slot" style="margin-top: var(--space-6);"></div>

@@ -2,29 +2,36 @@
 <div class="lab-card concept-map-container" id="concept-map-card">
   <div class="lab-card-header">
     <div class="lab-label-technical">CONCEPT MASTERY MAP</div>
-    <span class="lab-meta-mono">{{ summary.mastered }} / {{ summary.total }} MASTERED</span>
+    <span class="lab-meta-mono">{{ concept_map | length }} NODES</span>
   </div>
 
   <div class="lab-card-body" style="padding: var(--space-4);">
     <div class="concept-grid">
       {% for item in concept_map %}
-        <div
+        <div 
           class="concept-item {% if concept and concept.id == item.id %}active{% endif %} {% if item.just_updated %}transitioning{% endif %}"
           data-mastery="{{ item.mastery }}"
           id="concept-node-{{ item.id }}"
         >
           <div class="concept-info">
-            <span class="concept-id-tag">C-{{ '%02d' % loop.index }}</span>
+            <span class="concept-id-tag">C-0{{ item.id }}</span>
             <span class="concept-name">{{ item.name }}</span>
           </div>
 
           <span class="mastery-pill {{ item.mastery }}">
-            {% if item.mastery == 'unseen' %}&compfn; UNSEEN
-            {% elif item.mastery == 'shaky' %}&sim; SHAKY
-            {% elif item.mastery == 'diagnosed' %}&cross; DIAGNOSED
-            {% elif item.mastery == 'improving' %}&nearr; IMPROVING
-            {% elif item.mastery == 'mastered' %}&check; MASTERED
-            {% else %}{{ item.mastery | upper }}{% endif %}
+            {% if item.mastery == 'unseen' %}
+              &compfn; UNSEEN
+            {% elif item.mastery == 'shaky' %}
+              &sim; SHAKY
+            {% elif item.mastery == 'diagnosed' %}
+              &cross; DIAGNOSED
+            {% elif item.mastery == 'improving' %}
+              &nearr; IMPROVING
+            {% elif item.mastery == 'mastered' %}
+              &check; MASTERED
+            {% else %}
+              {{ item.mastery | upper }}
+            {% endif %}
           </span>
         </div>
       {% endfor %}
