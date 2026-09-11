@@ -9,13 +9,34 @@
       <div class="lab-label-technical">ADAPTIVE STUDY NOTES // GENERATED FOR YOUR CURRENT UNDERSTANDING</div>
       <div style="display:flex; align-items:baseline; justify-content:space-between; gap:var(--space-4); margin-top:4px;">
         <h1 class="lab-title-editorial" style="font-size: 2rem;">{{ doc.title }}</h1>
-        <a href="/study/{{ doc.id }}" class="btn-lab btn-lab-outline">&larr; Back to diagnosis</a>
+        <a href="/doc/{{ doc.id }}" class="btn-lab btn-lab-outline">&larr; Overview</a>
       </div>
       <p class="lab-meta-mono" style="margin-top:8px; color: var(--ink-muted);">
         MASTERY SNAPSHOT: {{ summary.mastered }} / {{ summary.total }} MASTERED
         &bull; THIS DOCUMENT REGENERATES WHEN YOUR UNDERSTANDING CHANGES
       </p>
     </header>
+
+    <div class="audio-trigger">
+      <button class="btn-lab btn-lab-outline"
+              hx-post="/notes/{{ doc.id }}/audio"
+              hx-target="#audio-slot"
+              hx-swap="innerHTML"
+              hx-indicator="#audio-indicator">
+        &#9834; Generate audio briefing
+      </button>
+      <span class="lab-meta-mono" style="color: var(--ink-muted);">
+        ~60 SECONDS &bull; WRITTEN FROM YOUR MASTERY STATE, NOT READ FROM THE NOTES
+      </span>
+    </div>
+
+    <div id="audio-indicator" class="slate-loading" role="status" aria-live="polite">
+      <span class="pulse-label">SYNTHESISING BRIEFING</span>
+      <div class="pulse-track"><div class="pulse-indicator-node"></div></div>
+      <span class="lab-meta-mono" style="font-size:0.65rem;">SCRIPT THEN VOICE</span>
+    </div>
+
+    <div id="audio-slot"></div>
 
     <div id="notes-body"
          hx-get="/notes/{{ doc.id }}/body"

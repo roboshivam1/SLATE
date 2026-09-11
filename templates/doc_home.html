@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}SLATE — {{ doc.title }}{% endblock %}
+
+{% block content %}
+<div class="lab-workspace lab-workspace-single">
+  <div class="dochome-wrapper">
+
+    <header class="dochome-head">
+      <div class="lab-label-technical">ACTIVE LAB NOTEBOOK</div>
+      <h1 class="lab-title-editorial">{{ doc.title }}</h1>
+      <p class="lab-meta-mono dochome-meta">
+        {{ doc.page_count }} PAGES &bull; {{ summary.total }} CONCEPTS
+        &bull; {{ summary.mastered }} MASTERED
+        {%- if attempts %} &bull; {{ attempts }} EXPLANATION{{ 's' if attempts != 1 }} GIVEN{% endif %}
+      </p>
+    </header>
+
+    <div class="stage-grid">
+
+      <a href="/notes/{{ doc.id }}"
+         class="stage-card {% if lead == 'learn' %}stage-lead{% endif %}">
+        <div class="stage-head">
+          <span class="stage-index">STAGE 01</span>
+          <span class="stage-name">LEARN</span>
+        </div>
+        <h2 class="stage-title">Adaptive study notes</h2>
+        <p class="stage-desc">
+          The document rewritten for you — expanded where you are shaky,
+          condensed where you have already proved yourself.
+        </p>
+        {% if needs_work %}
+          <div class="stage-badge badge-diagnosed">
+            &cross; Updated for {{ needs_work }} diagnosed concept{{ 's' if needs_work != 1 }}
+          </div>
+        {% elif attempts %}
+          <div class="stage-badge">&check; Current with your understanding</div>
+        {% else %}
+          <div class="stage-badge badge-neutral">Baseline notes &bull; not yet personalised</div>
+        {% endif %}
+        <span class="stage-cta">Open notes &rarr;</span>
+      </a>
+
+      <a href="/study/{{ doc.id }}"
+         class="stage-card {% if lead == 'diagnose' %}stage-lead{% endif %}">
+        <div class="stage-head">
+          <span class="stage-index">STAGE 02</span>
+          <span class="stage-name">DIAGNOSE</span>
+        </div>
+        <h2 class="stage-title">Explain it in your own words</h2>
+        <p class="stage-desc">
+          SLATE reads your reasoning, names the mental model behind the mistake,
+          and teaches against that specific model.
+        </p>
+        {% if needs_work %}
+          <div class="stage-badge badge-diagnosed">
+            {{ needs_work }} concept{{ 's' if needs_work != 1 }} awaiting correction
+          </div>
+        {% elif attempts %}
+          <div class="stage-badge">&check; Nothing outstanding &bull; keep going</div>
+        {% else %}
+          <div class="stage-badge badge-neutral">Nothing diagnosed yet</div>
+        {% endif %}
+        <span class="stage-cta">
+          {% if attempts %}Continue &rarr;{% else %}Start &rarr;{% endif %}
+        </span>
+      </a>
+
+    </div>
+
+    <div class="stage-link-note lab-meta-mono">
+      &darr; THE TWO STAGES ARE THE SAME LOOP: WHAT STAGE 02 DIAGNOSES
+      CHANGES WHAT STAGE 01 WRITES.
+    </div>
+
+    <div id="concept-map-slot">
+      {% include "partials/concept_map.html" %}
+    </div>
+
+  </div>
+</div>
+{% endblock %}

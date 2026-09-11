@@ -1553,3 +1553,65 @@ mark.evidence-mark {
   background: var(--state-diagnosed-bg); border: 1px solid var(--state-diagnosed-border);
   border-radius: 2px;
 }
+
+/* ---- Document home: the two stages --------------------------------- */
+.dochome-wrapper { max-width: 860px; margin: 0 auto; width: 100%; }
+.dochome-head { border-bottom: 1px solid var(--border-subtle);
+                padding-bottom: var(--space-4); margin-bottom: var(--space-6); }
+.dochome-meta { margin-top: 8px; color: var(--ink-muted); }
+
+.stage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+@media (max-width: 720px) { .stage-grid { grid-template-columns: 1fr; } }
+
+.stage-card {
+  display: flex; flex-direction: column; gap: var(--space-3);
+  padding: var(--space-6); text-decoration: none;
+  background: var(--bg-surface); border: 1px solid var(--border-subtle);
+  border-radius: 3px; transition: border-color .18s ease, transform .18s ease;
+}
+.stage-card:hover { border-color: var(--accent-electric-border); transform: translateY(-2px); }
+.stage-card.stage-lead { border-color: var(--accent-electric);
+                         box-shadow: 0 0 0 1px var(--accent-electric-subtle); }
+
+.stage-head { display: flex; align-items: center; gap: 8px; }
+.stage-index { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: .12em;
+               color: var(--ink-muted); }
+.stage-name { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+              letter-spacing: .16em; color: var(--accent-electric); }
+.stage-title { font-size: 1.2rem; margin: 0; color: var(--ink-primary); }
+.stage-desc { font-size: 0.92rem; line-height: 1.6; color: var(--ink-secondary); margin: 0; }
+
+.stage-badge {
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: .06em;
+  padding: 5px 8px; border-radius: 2px; width: fit-content;
+  color: var(--state-mastered); background: var(--state-mastered-bg);
+  border: 1px solid var(--state-mastered-border);
+}
+.stage-badge.badge-diagnosed { color: var(--state-diagnosed);
+  background: var(--state-diagnosed-bg); border-color: var(--state-diagnosed-border); }
+.stage-badge.badge-neutral { color: var(--ink-muted);
+  background: var(--bg-surface-inset); border-color: var(--border-subtle); }
+
+.stage-cta { margin-top: auto; padding-top: var(--space-3);
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: .08em; color: var(--accent-electric); }
+
+.stage-link-note { text-align: center; color: var(--ink-muted);
+  font-size: 0.62rem; margin: var(--space-5) 0; }
+
+/* ---- Audio briefing ------------------------------------------------ */
+.audio-card { padding: var(--space-4) var(--space-5); margin-bottom: var(--space-6);
+  background: var(--bg-surface); border: 1px solid var(--accent-electric-border);
+  border-radius: 3px; }
+.audio-card.audio-failed { border-color: var(--state-shaky-border);
+  background: var(--state-shaky-bg); }
+.audio-head { display: flex; justify-content: space-between; align-items: baseline;
+  gap: var(--space-4); margin-bottom: var(--space-3); flex-wrap: wrap; }
+.audio-player { width: 100%; height: 38px; }
+.audio-transcript { margin-top: var(--space-3); }
+.audio-transcript summary { cursor: pointer; color: var(--ink-muted);
+  font-size: 0.65rem; letter-spacing: .1em; }
+.audio-transcript p { margin: var(--space-3) 0 0; font-size: 0.92rem;
+  line-height: 1.7; color: var(--ink-secondary); }
+.audio-trigger { display: flex; align-items: center; gap: var(--space-4);
+  margin-bottom: var(--space-6); flex-wrap: wrap; }

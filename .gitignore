@@ -8,3 +8,4 @@ slate.db-shm
 uploads/*
 static/clips/*
 !static/clips/.gitkeep
+static/audio/*.wav

@@ -142,6 +142,9 @@ assert _art.state_fingerprint(doc_id) != fp1, "fingerprint must change with stat
 print("   fingerprint changes with mastery state: ok")
 check("GET /notes body [regenerated]", c.get(f"/notes/{doc_id}/body"), ["EXPANDED BECAUSE YOU WERE DIAGNOSED"])
 
+check("GET /doc home", c.get(f"/doc/{doc_id}"),
+      ["ACTIVE LAB NOTEBOOK", "STAGE 01", "STAGE 02", "LEARN", "DIAGNOSE",
+       "CONCEPT MASTERY MAP", "awaiting correction"])
 check("GET /debug", c.get(f"/debug/{doc_id}"), ["Misconception 0-0"])
 check("GET /health", c.get("/health"))
 

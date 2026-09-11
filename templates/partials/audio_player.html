@@ -1,0 +1,28 @@
+{% if not audio %}
+  <div class="audio-card audio-failed">
+    <span class="lab-meta-mono" style="color: var(--state-shaky);">
+      &sim; AUDIO BRIEFING UNAVAILABLE
+    </span>
+    <p style="margin:6px 0 0; font-size:0.9rem; color: var(--ink-secondary);">
+      The notes above are unaffected. Check that GEMINI_API_KEY is set.
+    </p>
+  </div>
+{% else %}
+  <div class="audio-card">
+    <div class="audio-head">
+      <span class="lab-meta-mono" style="color: var(--accent-electric);">
+        &#9834; AUDIO BRIEFING &bull; ~{{ audio.seconds }}s
+      </span>
+      <span class="lab-meta-mono" style="color: var(--ink-muted);">
+        WRITTEN FOR YOUR CURRENT STATE
+      </span>
+    </div>
+
+    <audio class="audio-player" controls preload="auto" src="{{ audio.url }}"></audio>
+
+    <details class="audio-transcript">
+      <summary class="lab-meta-mono">TRANSCRIPT</summary>
+      <p>{{ audio.script }}</p>
+    </details>
+  </div>
+{% endif %}

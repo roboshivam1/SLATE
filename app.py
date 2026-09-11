@@ -18,6 +18,7 @@ from diagnose import classifier
 from diagnose.highlight import highlight
 from remediate import resolver
 from content import notes as content_notes
+from content import narrate as content_narrate
 
 app = FastAPI(title="SLATE")
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -71,7 +72,29 @@ async def upload(file: UploadFile = File(...)):
         traceback.print_exc()
         print(f"[ingest] FAILED doc {doc_id}: {type(e).__name__}: {e}")
 
-    return RedirectResponse(f"/study/{doc_id}", status_code=303)
+    return RedirectResponse(f"/doc/{doc_id}", status_code=303)
+
+
+# ---------------------------------------------------------------- doc home
+
+@app.get("/doc/{doc_id}")
+def doc_home(request: Request, doc_id: int):
+    doc = db.one("SELECT * FROM documents WHERE id = ?", (doc_id,))
+    summary = learner_state.summary(doc_id)
+    counts = summary["counts"]
+    needs_work = counts.get("diagnosed", 0) + counts.get("shaky", 0)
+    attempts = db.one(
+        "SELECT COUNT(*) AS n FROM attempts a JOIN concepts c ON c.id = a.concept_id "
+        "WHERE c.document_id = ?", (doc_id,))["n"]
+
+    # Which stage leads depends on where the learner actually is.
+    lead = "diagnose" if (needs_work or attempts) else "learn"
+
+    return templates.TemplateResponse(
+        request, "doc_home.html",
+        {"doc": doc, "doc_id": doc_id, "summary": summary,
+         "concept_map": _map(doc_id), "concept": None,
+         "needs_work": needs_work, "attempts": attempts, "lead": lead})
 
 
 # ---------------------------------------------------------------- study
@@ -200,6 +223,14 @@ def notes_body(request: Request, doc_id: int):
     n, _plan = content_notes.notes_for(doc_id)
     return templates.TemplateResponse(
         request, "partials/notes_body.html", {"notes": n, "doc_id": doc_id})
+
+
+@app.post("/notes/{doc_id}/audio")
+def notes_audio(request: Request, doc_id: int):
+    """On demand only — never generated as part of a page load."""
+    audio = content_narrate.audio_for(doc_id)
+    return templates.TemplateResponse(
+        request, "partials/audio_player.html", {"audio": audio, "doc_id": doc_id})
 
 
 # ---------------------------------------------------------------- debug
