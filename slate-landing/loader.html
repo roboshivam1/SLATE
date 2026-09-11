@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLATE — Initializing Cognitive Mastery System</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2307090D'/><rect x='2' y='2' width='6' height='6' fill='%2338BDF8'/><text x='50%25' y='65%25' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='16'>S</text></svg>">
+  
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/glass.css">
+  <link rel="stylesheet" href="styles/loader.css">
+</head>
+<body style="background-color: #07090D; margin: 0; overflow: hidden;">
+
+  <!-- Ambient Light Orbs matching site theme -->
+  <div class="loader-orb loader-orb-1"></div>
+  <div class="loader-orb loader-orb-2"></div>
+
+  <div class="loader-page" id="loader-page">
+    
+    <!-- Animated Logo Stage -->
+    <div class="logo-animation-stage">
+      <div class="orbit-ring-1"></div>
+      <div class="orbit-ring-2"></div>
+      <div class="hud-scan-beam"></div>
+      
+      <!-- Central Frosted Glass Badge -->
+      <div class="loader-logo-badge">
+        <span class="loader-logo-char">S</span>
+      </div>
+    </div>
+
+    <!-- Progress Track & System Log Readout -->
+    <div class="loader-content-box">
+      <div class="loader-brand-title">SLATE</div>
+      <div class="loader-brand-subtitle">COGNITIVE MASTERY SYSTEM</div>
+
+      <!-- Glass Progress Track -->
+      <div class="loader-progress-track">
+        <div class="loader-progress-fill" id="loader-progress-fill"></div>
+      </div>
+
+      <div class="loader-terminal-log">
+        <span style="color: #38BDF8;">&gt;</span>
+        <span id="loader-log-text">INITIALIZING ENGINE...</span>
+        <span class="loader-percentage" id="loader-percentage">0%</span>
+      </div>
+
+      <a href="index.html" class="loader-skip-btn">
+        Enter Immediately &rarr;
+      </a>
+    </div>
+
+  </div>
+
+  <script src="js/loader.js"></script>
+</body>
+</html>

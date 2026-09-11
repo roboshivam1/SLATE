@@ -1,3 +1,4 @@
+import os
 import shutil
 from pathlib import Path
 
@@ -20,10 +21,34 @@ from remediate import resolver
 from content import notes as content_notes
 from content import narrate as content_narrate
 
+# ---- OPTIONAL video briefing ----------------------------------------
+# Isolated: delete content/video.py or set SLATE_VIDEO=0 and everything
+# below simply switches off. Nothing else in the app depends on it.
+try:
+    from content import video as content_video
+    VIDEO_ENABLED = content_video.is_available()
+except Exception as _e:
+    content_video, VIDEO_ENABLED = None, False
+    print(f"[video] disabled: {_e}")
+
 app = FastAPI(title="SLATE")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# ---- Optional marketing landing page --------------------------------
+# Fully self-contained static bundle in static/landing/. It shares NO code,
+# CSS or templates with the app, so it cannot break anything.
+# Disable with SLATE_LANDING=0, or simply delete static/landing/.
+LANDING_DIR = Path("static/landing")
+LANDING_ENABLED = (
+    os.getenv("SLATE_LANDING", "1").lower() not in ("0", "false", "no")
+    and (LANDING_DIR / "loader.html").exists()
+)
 templates = Jinja2Templates(directory="templates")
 templates.env.filters["highlight"] = highlight
+
+if LANDING_ENABLED:
+    app.mount("/landing", StaticFiles(directory=str(LANDING_DIR), html=True),
+              name="landing")
 
 UPLOADS = Path("uploads")
 
@@ -45,6 +70,14 @@ def _map(doc_id: int, updated_id: int | None = None):
 # ---------------------------------------------------------------- upload
 
 @app.get("/")
+def root(request: Request):
+    """Landing page if enabled, otherwise straight into the app."""
+    if LANDING_ENABLED:
+        return RedirectResponse("/landing/loader.html", status_code=307)
+    return RedirectResponse("/start", status_code=307)
+
+
+@app.get("/start")
 def home(request: Request):
     docs = db.query(
         "SELECT d.*, (SELECT COUNT(*) FROM concepts c WHERE c.document_id = d.id) "
@@ -215,7 +248,8 @@ def notes_page(request: Request, doc_id: int):
     doc = db.one("SELECT * FROM documents WHERE id = ?", (doc_id,))
     return templates.TemplateResponse(
         request, "notes.html",
-        {"doc": doc, "doc_id": doc_id, "summary": learner_state.summary(doc_id)})
+        {"doc": doc, "doc_id": doc_id, "summary": learner_state.summary(doc_id),
+         "video_enabled": VIDEO_ENABLED})
 
 
 @app.get("/notes/{doc_id}/body")
@@ -231,6 +265,27 @@ def notes_audio(request: Request, doc_id: int):
     audio = content_narrate.audio_for(doc_id)
     return templates.TemplateResponse(
         request, "partials/audio_player.html", {"audio": audio, "doc_id": doc_id})
+
+
+if True:
+
+    @app.post("/notes/{doc_id}/video")
+    def notes_video(request: Request, doc_id: int):
+        if content_video is None:
+            v = {"state": "failed", "error": "content/video.py failed to import."}
+        else:
+            v = content_video.start(doc_id)
+        return templates.TemplateResponse(
+            request, "partials/video_player.html", {"v": v, "doc_id": doc_id})
+
+    @app.get("/notes/{doc_id}/video/status")
+    def notes_video_status(request: Request, doc_id: int):
+        if content_video is None:
+            v = {"state": "failed", "error": "content/video.py failed to import."}
+        else:
+            v = content_video.job_status(doc_id)
+        return templates.TemplateResponse(
+            request, "partials/video_player.html", {"v": v, "doc_id": doc_id})
 
 
 # ---------------------------------------------------------------- debug

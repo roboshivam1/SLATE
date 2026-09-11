@@ -9,3 +9,6 @@ uploads/*
 static/clips/*
 !static/clips/.gitkeep
 static/audio/*.wav
+static/video/*.mp4
+static/video/*.mp4
+.chalkdust-cache/

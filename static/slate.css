@@ -1615,3 +1615,11 @@ mark.evidence-mark {
   line-height: 1.7; color: var(--ink-secondary); }
 .audio-trigger { display: flex; align-items: center; gap: var(--space-4);
   margin-bottom: var(--space-6); flex-wrap: wrap; }
+
+/* ---- Video briefing (optional feature) ----------------------------- */
+.video-card { padding: var(--space-4) var(--space-5); margin-bottom: var(--space-6);
+  background: var(--bg-surface); border: 1px solid var(--accent-electric-border);
+  border-radius: 3px; }
+.video-card.video-working { border-style: dashed; }
+.video-player { width: 100%; border-radius: 3px; margin: var(--space-3) 0;
+  background: #000; display: block; }

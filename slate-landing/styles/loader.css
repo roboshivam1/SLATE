@@ -1,0 +1,249 @@
+/* ====================================================================
+   SLATE — ANIMATED LOGO SPLASH & LOADING PAGE STYLES
+   Color Theme: Near-black #07090D, Electric Cyan #38BDF8, Frosted Glass
+   ==================================================================== */
+
+.loader-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-dark, #07090D);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+  color: #F8FAFC;
+}
+
+/* Ambient Refraction Orbs for Loading Background */
+.loader-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.5;
+  animation: loaderOrbPulse 4s ease-in-out infinite alternate;
+}
+
+.loader-orb-1 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.loader-orb-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+  animation-delay: -2s;
+}
+
+@keyframes loaderOrbPulse {
+  0% { transform: scale(0.85); opacity: 0.35; }
+  100% { transform: scale(1.15); opacity: 0.65; }
+}
+
+/* --------------------------------------------------------------------
+   ANIMATED LOGO STAGE
+   -------------------------------------------------------------------- */
+.logo-animation-stage {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* Central Frosted Glass Logo Badge */
+.loader-logo-badge {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  background: rgba(15, 22, 34, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid rgba(56, 189, 248, 0.5);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 0 35px rgba(56, 189, 248, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  z-index: 5;
+  animation: logoPulse 2.5s ease-in-out infinite;
+}
+
+.loader-logo-char {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: 48px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #7DD3FC 50%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.8));
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(56, 189, 248, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.7); }
+}
+
+/* Outer 3D Rotating Gyro Ring 1 */
+.orbit-ring-1 {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  border: 1.5px dashed rgba(56, 189, 248, 0.4);
+  border-radius: 50%;
+  animation: spinRingCW 8s linear infinite;
+  pointer-events: none;
+}
+
+/* Outer 3D Rotating Gyro Ring 2 */
+.orbit-ring-2 {
+  position: absolute;
+  width: 210px;
+  height: 210px;
+  border: 1px solid transparent;
+  border-top-color: #38BDF8;
+  border-bottom-color: rgba(56, 189, 248, 0.2);
+  border-radius: 50%;
+  animation: spinRingCCW 6s linear infinite;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+  pointer-events: none;
+}
+
+/* Hexagonal Scanning HUD Overlay */
+.hud-scan-beam {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #7DD3FC, transparent);
+  box-shadow: 0 0 15px #38BDF8;
+  animation: scanBeam 2.2s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes spinRingCW {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinRingCCW {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes scanBeam {
+  0% { top: 10%; opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { top: 90%; opacity: 0.2; }
+}
+
+/* --------------------------------------------------------------------
+   PROGRESS BAR & TECH TERMINAL READOUT
+   -------------------------------------------------------------------- */
+.loader-content-box {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+}
+
+.loader-brand-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.2em;
+  color: #F8FAFC;
+  margin-bottom: 4px;
+}
+
+.loader-brand-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: #38BDF8;
+  margin-bottom: 24px;
+}
+
+/* Glass Progress Container */
+.loader-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 16px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.loader-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #0284C7 0%, #38BDF8 50%, #7DD3FC 100%);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
+  border-radius: 100px;
+  transition: width 0.1s linear;
+}
+
+/* Log Readout Terminal */
+.loader-terminal-log {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #94A3B8;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.05em;
+}
+
+.loader-percentage {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #7DD3FC;
+  margin-left: auto;
+}
+
+/* Skip / Enter Immediately Button */
+.loader-skip-btn {
+  margin-top: 24px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #94A3B8;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.loader-skip-btn:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: #38BDF8;
+  color: #38BDF8;
+}
+
+/* Exit Dissolve Transition */
+.loader-page.fade-out {
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}

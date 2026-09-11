@@ -38,6 +38,19 @@
 
     <div id="audio-slot"></div>
 
+    <div class="audio-trigger">
+      <button class="btn-lab btn-lab-outline"
+              hx-post="/notes/{{ doc.id }}/video"
+              hx-target="#video-slot"
+              hx-swap="innerHTML">
+        &#9654; Generate video briefing
+      </button>
+      <span class="lab-meta-mono" style="color: var(--ink-muted);">
+        ANIMATED &bull; RENDERS IN THE BACKGROUND, A FEW MINUTES
+      </span>
+    </div>
+    <div id="video-slot"></div>
+
     <div id="notes-body"
          hx-get="/notes/{{ doc.id }}/body"
          hx-trigger="load"

@@ -1,0 +1,45 @@
+{% if v.state == "ready" %}
+  <div class="video-card">
+    <div class="audio-head">
+      <span class="lab-meta-mono" style="color: var(--accent-electric);">
+        &#9654; VIDEO BRIEFING
+      </span>
+      <span class="lab-meta-mono" style="color: var(--ink-muted);">
+        RENDERED FOR YOUR CURRENT STATE
+      </span>
+    </div>
+    <video class="video-player" controls preload="metadata" src="{{ v.url }}"></video>
+    <details class="audio-transcript">
+      <summary class="lab-meta-mono">WHAT THIS COVERS</summary>
+      <p>{{ v.script }}</p>
+    </details>
+  </div>
+
+{% elif v.state == "rendering" %}
+  <div class="video-card video-working"
+       hx-get="/notes/{{ doc_id }}/video/status"
+       hx-trigger="load delay:5s"
+       hx-swap="outerHTML">
+    <div class="slate-loading htmx-request" style="margin-top:0;">
+      <span class="pulse-label">RENDERING ANIMATION</span>
+      <div class="pulse-track"><div class="pulse-indicator-node"></div></div>
+      <span class="lab-meta-mono" style="font-size:0.65rem;">
+        {{ v.stage | default("working") | upper }}
+      </span>
+    </div>
+    <p class="lab-meta-mono" style="margin:10px 0 0; color: var(--ink-muted);">
+      THIS TAKES A FEW MINUTES. THE PAGE UPDATES ITSELF — KEEP READING THE NOTES BELOW.
+    </p>
+  </div>
+
+{% else %}
+  <div class="video-card audio-failed">
+    <span class="lab-meta-mono" style="color: var(--state-shaky);">
+      &sim; VIDEO BRIEFING UNAVAILABLE
+    </span>
+    <p style="margin:6px 0 0; font-size:0.9rem; color: var(--ink-secondary);">
+      {{ v.error | default("The renderer is not configured on this machine.") }}
+      The notes above are unaffected.
+    </p>
+  </div>
+{% endif %}

@@ -1,0 +1,155 @@
+/* ====================================================================
+   SLATE — COGNITIVE MASTERY SYSTEM
+   ANIMATIONS & MOTION SYSTEM
+   ==================================================================== */
+
+/* Reveal Animations */
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+
+/* Micro-Particles Floating in Hero Deck */
+.particles-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  box-shadow: 0 0 6px var(--accent-cyan);
+  opacity: 0.5;
+  animation: particleFloat 10s ease-in-out infinite alternate;
+}
+
+.particle-1 { top: 15%; left: 20%; animation-delay: 0s; }
+.particle-2 { top: 40%; left: 80%; animation-delay: -2s; }
+.particle-3 { top: 75%; left: 35%; animation-delay: -4s; }
+.particle-4 { top: 60%; left: 70%; animation-delay: -6s; }
+.particle-5 { top: 25%; left: 55%; animation-delay: -8s; }
+.particle-6 { top: 85%; left: 15%; animation-delay: -1s; }
+.particle-7 { top: 30%; left: 10%; animation-delay: -3s; }
+.particle-8 { top: 70%; left: 85%; animation-delay: -5s; }
+.particle-9 { top: 10%; left: 75%; animation-delay: -7s; }
+.particle-10 { top: 50%; left: 45%; animation-delay: -9s; }
+
+@keyframes particleFloat {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  50% { transform: translate(20px, -25px) scale(1.4); opacity: 0.8; }
+  100% { transform: translate(-15px, 20px) scale(0.9); opacity: 0.4; }
+}
+
+/* Loop Timeline Bar */
+.loop-timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+
+.loop-step {
+  position: relative;
+  background: rgba(13, 18, 28, 0.55);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+  opacity: 0.4;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.loop-step.active {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.loop-step-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-cyan);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.loop-step-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink-primary);
+  margin-bottom: 8px;
+}
+
+.loop-step-desc {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+.loop-timeline-connector {
+  position: relative;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.loop-timeline-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #38BDF8, #7DD3FC);
+  box-shadow: 0 0 10px var(--accent-cyan);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Diagnosis Evidence Highlight Span Animation */
+.evidence-span {
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  transition: all 0.6s ease;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.evidence-span.highlighted {
+  background: var(--state-diagnosed-bg);
+  color: #FCA5A5;
+  border-bottom-color: var(--state-diagnosed);
+  box-shadow: 0 0 12px var(--state-diagnosed-bg);
+}
+
+/* Modal Entrance Keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

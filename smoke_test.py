@@ -65,7 +65,10 @@ def check(label, r, must_contain=()):
     else:
         print(f"ok   {label}  ({len(body)} bytes)")
 
-check("GET /", c.get("/"), ["Upload Learning Material", "Fundamentals_of_Database"])
+r_root = c.get("/", follow_redirects=False)
+assert r_root.status_code == 307, r_root.status_code
+print(f"ok   GET / redirects -> {r_root.headers['location']}")
+check("GET /start", c.get("/start"), ["Upload Learning Material", "Fundamentals_of_Database"])
 check("GET /study", c.get(f"/study/{doc_id}"),
       ["Definition of a Database", "CONCEPT MASTERY MAP", "question_text", "0 / 3 MASTERED"])
 
@@ -141,6 +144,26 @@ db.execute("UPDATE learner_state SET mastery='shaky' WHERE concept_id=?", (cids[
 assert _art.state_fingerprint(doc_id) != fp1, "fingerprint must change with state"
 print("   fingerprint changes with mastery state: ok")
 check("GET /notes body [regenerated]", c.get(f"/notes/{doc_id}/body"), ["EXPANDED BECAUSE YOU WERE DIAGNOSED"])
+
+import app as _app
+try:
+    import content.video as vid
+except ModuleNotFoundError:
+    vid = None
+if vid:
+    _beats, _summary = vid.build_beats(doc_id, cn.build_plan(doc_id))
+    from chalkdust.core.models import VideoSpec as _VS, BeatSpec as _BS
+    _spec = _VS(video_id="smoke", beats=tuple(_BS(**b) for b in _beats))
+    assert all(len(b.narration.split()) <= 80 for b in _spec.beats)
+    print(f"ok   video: {len(_spec.beats)} beats validate against CHALKDUST schema")
+    r = c.post(f"/notes/{doc_id}/video") if _app.VIDEO_ENABLED else None
+    if r is not None:
+        assert "VIDEO BRIEFING" in r.text
+        print("ok   video: route renders")
+    else:
+        print(f"ok   video: unavailable here, correctly hidden ({vid.missing_requirements()})")
+else:
+    print("ok   video feature absent - app unaffected")
 
 check("GET /doc home", c.get(f"/doc/{doc_id}"),
       ["ACTIVE LAB NOTEBOOK", "STAGE 01", "STAGE 02", "LEARN", "DIAGNOSE",
