@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLATE — Cognitive Mastery System | Master Starts With Why</title>
+  <meta name="description" content="SLATE helps you understand your mistakes, fix your mental models, and achieve real mastery. A precision cognitive diagnostic engine.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2307090D'/><rect x='2' y='2' width='6' height='6' fill='%2338BDF8'/><text x='50%25' y='65%25' text-anchor='middle' fill='%23FFFFFF' font-family='sans-serif' font-weight='bold' font-size='16'>S</text></svg>">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/glass.css">
+  <link rel="stylesheet" href="styles/animations.css">
+  <link rel="stylesheet" href="styles/responsive.css">
+  <link rel="stylesheet" href="styles/loader.css">
+</head>
+<body>
+
+  <!-- ANIMATED LOGO SPLASH OVERLAY -->
+  <div class="loader-page" id="loader-page">
+    <div class="loader-orb loader-orb-1"></div>
+    <div class="loader-orb loader-orb-2"></div>
+    
+    <div class="logo-animation-stage">
+      <div class="orbit-ring-1"></div>
+      <div class="orbit-ring-2"></div>
+      <div class="hud-scan-beam"></div>
+      
+      <div class="loader-logo-badge">
+        <span class="loader-logo-char">S</span>
+      </div>
+    </div>
+
+    <div class="loader-content-box">
+      <div class="loader-brand-title">SLATE</div>
+      <div class="loader-brand-subtitle">COGNITIVE MASTERY SYSTEM</div>
+
+      <div class="loader-progress-track">
+        <div class="loader-progress-fill" id="loader-progress-fill"></div>
+      </div>
+
+      <div class="loader-terminal-log">
+        <span style="color: #38BDF8;">&gt;</span>
+        <span id="loader-log-text">INITIALIZING ENGINE...</span>
+        <span class="loader-percentage" id="loader-percentage">0%</span>
+      </div>
+
+      <button type="button" class="loader-skip-btn" onclick="document.getElementById('loader-page').classList.add('fade-out'); setTimeout(() => document.getElementById('loader-page').style.display='none', 500);">
+        Skip Intro &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- Engineering Graph Paper Background & Vignette -->
+  <div class="technical-grid-bg" aria-hidden="true"></div>
+  <div class="vignette-overlay" aria-hidden="true"></div>
+
+  <!-- Ambient Liquid Orbs for Rich Glass Refraction -->
+  <div class="ambient-glow-orb orb-1" aria-hidden="true"></div>
+  <div class="ambient-glow-orb orb-2" aria-hidden="true"></div>
+  <div class="ambient-glow-orb orb-3" aria-hidden="true"></div>
+
+  <!-- Minimal Navigation Bar -->
+  <header>
+    <nav class="navbar" id="navbar" aria-label="Main Navigation">
+      <div class="nav-container">
+        <a href="#hero" class="brand-group" aria-label="SLATE Home">
+          <div class="brand-glyph" aria-hidden="true">S</div>
+          <div class="brand-text">
+            <span class="brand-title">SLATE</span>
+            <span class="brand-subtitle">COGNITIVE MASTERY SYSTEM</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#problem" class="nav-link">PARADIGM</a></li>
+          <li><a href="#loop" class="nav-link">THE LOOP</a></li>
+          <li><a href="#diagnosis" class="nav-link">DIAGNOSIS</a></li>
+          <li><a href="#remediation" class="nav-link">REMEDIATION</a></li>
+          <li><a href="#mastery" class="nav-link">MASTERY</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="#demo" class="btn btn-secondary-translucent btn-nav-small btn-watch-demo">
+            <span class="demo-icon" aria-hidden="true">○</span> Watch Demo
+          </a>
+          <a href="/" class="btn btn-primary-cyan btn-nav-small">
+            Start Learning &rarr;
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ====================================================================
+         SECTION 1: HERO
+         Editorial Headline + Three Floating Frosted Glass Panels
+         ==================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-layout">
+          
+          <!-- Left Column: Editorial Statement with Cursive Typography -->
+          <div class="hero-content">
+            <div class="hero-meta-badge">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span>COGNITIVE RECONSTRUCTION ENGINE // V2.4</span>
+            </div>
+
+            <h1 class="hero-headline">
+              <span class="headline-line">Master</span>
+              <span class="headline-line">Starts With</span>
+              <span class="why-target-mark" id="why-target-mark" aria-label="WHY: The Mental Model Target">
+                <span class="why-cursive">WHY</span>
+                <span class="why-meta-tag">[ MENTAL MODEL // TARGET VARIABLE ]</span>
+              </span>
+            </h1>
+
+            <!-- Cursive Subhead Below WHY -->
+            <p class="hero-subhead-cursive">
+              SLATE helps you understand your mistakes, fix your mental models, and achieve real mastery.
+            </p>
+
+            <div class="hero-actions">
+              <a href="/" class="btn btn-primary-cyan">
+                Start Learning &rarr;
+              </a>
+              <button type="button" class="btn btn-secondary-translucent btn-watch-demo">
+                <span class="demo-icon" aria-hidden="true">○</span> Watch Demo
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column: The Three Floating Glass Panels (3D Parallax Deck) -->
+          <div class="hero-glass-stage" aria-label="Cognitive Transformation Visual: Confusion to Diagnosis to Clarity">
+            
+            <!-- Floating Micro-Particles -->
+            <div class="particles-layer" aria-hidden="true">
+              <div class="particle particle-1"></div>
+              <div class="particle particle-2"></div>
+              <div class="particle particle-3"></div>
+              <div class="particle particle-4"></div>
+              <div class="particle particle-5"></div>
+              <div class="particle particle-6"></div>
+              <div class="particle particle-7"></div>
+              <div class="particle particle-8"></div>
+              <div class="particle particle-9"></div>
+              <div class="particle particle-10"></div>
+            </div>
+
+            <!-- 1. BACK PANEL: CONFUSION -->
+            <div class="glass-panel-wrapper panel-confusion" id="panel-confusion">
+              <div class="glass-panel">
+                <div class="glass-header-mono">
+                  <span>PHASE_01 // UNSTRUCTURED</span>
+                  <span class="glass-indicator-dot"></span>
+                </div>
+                <div class="confusion-fragments">
+                  <div class="confusion-fragment">"multiply"</div>
+                  <div class="confusion-fragment">"same rule"</div>
+                  <div class="confusion-fragment">"derivative"</div>
+                </div>
+                <div class="glass-header-mono" style="margin-bottom: 0; margin-top: auto; opacity: 0.5;">
+                  <span>DISCONNECTED FRAGMENTS</span>
+                  <span>[ENTROPY: HIGH]</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. MIDDLE PANEL: DIAGNOSIS -->
+            <div class="glass-panel-wrapper panel-diagnosis" id="panel-diagnosis">
+              <div class="glass-panel">
+                <div class="glass-header-mono">
+                  <span>PHASE_02 // ISOLATION</span>
+                  <span class="glass-indicator-dot"></span>
+                </div>
+                <div class="diagnosis-inner-content">
+                  <div class="diagnosis-badge">
+                    <span>⚠ MISCONCEPTION DETECTED</span>
+                  </div>
+                  <div class="diagnosis-flaw-line">
+                    Outer composition treated as arithmetic multiplication.
+                  </div>
+                </div>
+                <div class="glass-header-mono" style="margin-bottom: 0; margin-top: auto; color: var(--state-diagnosed);">
+                  <span>ROOT CAUSE IDENTIFIED</span>
+                  <span>[SCHEMA_FAULT]</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. FRONT PANEL: CLARITY (Strongest Cyan Glass Edge) -->
+            <div class="glass-panel-wrapper panel-clarity" id="panel-clarity">
+              <div class="glass-panel">
+                <div class="glass-header-mono" style="color: var(--accent-cyan);">
+                  <span>PHASE_03 // RECONSTRUCTION</span>
+                  <span class="glass-indicator-dot"></span>
+                </div>
+                <div class="clarity-formula-box">
+                  <div class="clarity-badge">
+                    <span>✓ CORRECT MODEL</span>
+                  </div>
+                  <div class="clarity-formula">
+                    (f ∘ g)'(x) = f'(g(x)) · g'(x)
+                  </div>
+                  <div class="clarity-subtext">
+                    Rate of outer envelope evaluated at inner core, scaled by inner rate.
+                  </div>
+                </div>
+                <div class="glass-header-mono" style="margin-bottom: 0; margin-top: auto; color: var(--accent-cyan-bright);">
+                  <span>COGNITIVE COHERENCE</span>
+                  <span>[STABLE]</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FLUID FROSTED GLASS METRICS STRIP -->
+        <div class="metrics-strip">
+          <div class="metrics-container">
+            <div class="metric-item">
+              <span class="metric-value">5</span>
+              <span class="metric-label">Learning<br>States</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Real-time</span>
+              <span class="metric-label">Cognitive<br>Diagnosis</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Personalized</span>
+              <span class="metric-label">Schema<br>Remediation</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-value">Lasting</span>
+              <span class="metric-label">Conceptual<br>Mastery</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 2: THE PROBLEM (PARADIGM SHIFT)
+         ==================================================================== -->
+    <section class="section" id="problem">
+      <div class="container">
+        <div class="reveal-fade-up">
+          <span class="section-tag">[ PARADIGM_CONTRAST // CORE_THESIS ]</span>
+          <h2 class="section-title">Most learning tools stop at the answer.</h2>
+          <p class="section-subtitle">
+            Binary right/wrong grading treats knowledge as memorized lookup. SLATE views learning as the calibration of dynamic mental models.
+          </p>
+        </div>
+
+        <div class="problem-comparison reveal-fade-up reveal-delay-1">
+          <!-- Legacy Tools -->
+          <div class="paradigm-card paradigm-legacy">
+            <div>
+              <div class="card-header-mono">
+                <span>CONVENTIONAL PLATFORMS</span>
+                <span>[SHALLOW EVALUATION]</span>
+              </div>
+              <h3 class="card-headline">The Blind Binary Trap</h3>
+              <p class="paradigm-description">
+                You submit a response. The system marks it red. You see the correct answer key, nod along passively, and make the exact same error tomorrow.
+              </p>
+            </div>
+
+            <div class="flow-diagram-shallow" aria-label="Question leads directly to Wrong without explanation">
+              <div class="flow-node-shallow">QUESTION</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-node-shallow wrong">WRONG (0/1)</div>
+            </div>
+
+            <div class="card-header-mono" style="margin-bottom: 0;">
+              <span>SYMPTOM PATCHING // NO INTERNAL MODEL UPDATE</span>
+            </div>
+          </div>
+
+          <!-- SLATE Cognitive Architecture -->
+          <div class="paradigm-card paradigm-slate">
+            <div>
+              <div class="card-header-mono" style="color: var(--accent-cyan);">
+                <span>THE SLATE COGNITIVE ARCHITECTURE</span>
+                <span>[STRUCTURAL DIAGNOSIS]</span>
+              </div>
+              <h3 class="card-headline">Uncovering the Flawed Axiom</h3>
+              <p class="paradigm-description">
+                SLATE analyzes how you reached the conclusion. We isolate which assumption broke down, reconstruct the mental model, and retest until intuition solidifies.
+              </p>
+            </div>
+
+            <div class="flow-diagram-slate" aria-label="Answer leads to Why, to Mental Model, to Remediation, to Mastery">
+              <div class="flow-node-slate">ANSWER</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-node-slate highlight">WHY</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-node-slate">MENTAL MODEL</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-node-slate">REMEDIATION</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-node-slate mastered">MASTERY</div>
+            </div>
+
+            <div class="card-header-mono" style="margin-bottom: 0; color: var(--accent-cyan);">
+              <span>GENUINE MASTERY // PERMANENT RETENTION</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 3: THE SLATE LOOP
+         ==================================================================== -->
+    <section class="section" id="loop">
+      <div class="container">
+        <div class="reveal-fade-up">
+          <span class="section-tag">[ WORKFLOW_ENGINE // CONTINUOUS RECURSION ]</span>
+          <h2 class="section-title">The Five Stages of Real Mastery.</h2>
+          <p class="section-subtitle">
+            A continuous calibration loop engineered to dismantle flawed intuition and build rigorous understanding.
+          </p>
+        </div>
+
+        <div class="loop-timeline-connector" aria-hidden="true" style="margin-top: var(--space-12);">
+          <div class="loop-timeline-progress" id="loop-progress-bar"></div>
+        </div>
+
+        <div class="loop-timeline">
+          <!-- Stage 01 -->
+          <div class="loop-step">
+            <span class="loop-step-num">01 // INTAKE</span>
+            <h3 class="loop-step-title">You Explain</h3>
+            <p class="loop-step-desc">
+              Articulate your reasoning in natural language, math syntax, or step-by-step logic.
+            </p>
+          </div>
+
+          <!-- Stage 02 -->
+          <div class="loop-step">
+            <span class="loop-step-num">02 // PARSING</span>
+            <h3 class="loop-step-title">We Diagnose</h3>
+            <p class="loop-step-desc">
+              SLATE decomposes your logic tree to locate the exact flawed assumption.
+            </p>
+          </div>
+
+          <!-- Stage 03 -->
+          <div class="loop-step">
+            <span class="loop-step-num">03 // CALIBRATION</span>
+            <h3 class="loop-step-title">You Learn</h3>
+            <p class="loop-step-desc">
+              Receive contrastive explanations that contrast your flawed model against the valid paradigm.
+            </p>
+          </div>
+
+          <!-- Stage 04 -->
+          <div class="loop-step">
+            <span class="loop-step-num">04 // VALIDATION</span>
+            <h3 class="loop-step-title">You Retest</h3>
+            <p class="loop-step-desc">
+              Encounter near-transfer problems generated to verify the vulnerability is repaired.
+            </p>
+          </div>
+
+          <!-- Stage 05 -->
+          <div class="loop-step">
+            <span class="loop-step-num">05 // RETENTION</span>
+            <h3 class="loop-step-title">You Master</h3>
+            <p class="loop-step-desc">
+              Knowledge states advance from Diagnosed to Mastered on your cognitive graph.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 4: DIAGNOSIS DEMO
+         ==================================================================== -->
+    <section class="section" id="diagnosis">
+      <div class="container">
+        <div class="reveal-fade-up">
+          <span class="section-tag">[ EVIDENCE_PARSER // HIGH-RESOLUTION EXTRACTION ]</span>
+          <h2 class="section-title">We don't guess. We locate the exact misconception.</h2>
+          <p class="section-subtitle">
+            Watch SLATE isolate the precise cognitive breakdown in real student reasoning.
+          </p>
+        </div>
+
+        <div class="diagnosis-container" style="margin-top: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+          <!-- Student Response Panel -->
+          <div class="paradigm-card reveal-fade-up">
+            <div class="card-header-mono">STUDENT REASONING INTAKE // PROBLEM #402</div>
+            
+            <div style="font-size: 15px; color: var(--ink-primary); margin-bottom: 16px;">
+              <strong>Context:</strong> Differentiate y = (2x + 1)³ with respect to x.
+            </div>
+
+            <blockquote style="font-size: 16px; color: var(--ink-secondary); font-style: italic; line-height: 1.6; border-left: 2px solid var(--accent-cyan); padding-left: 16px; margin-bottom: 24px;">
+              "First I expanded nothing, and then <span class="evidence-span" id="evidence-span">so I just multiplied the two derivatives together</span> thinking that derivative of 2x+1 is 2, and outer power was 3..."
+            </blockquote>
+
+            <div class="card-header-mono" style="margin-bottom: 0;">
+              <span>SYNTACTIC ANALYSIS // TOKEN CONFIDENCE: 98.4%</span>
+            </div>
+          </div>
+
+          <!-- Misconception Diagnostic Card -->
+          <div class="paradigm-card paradigm-slate reveal-fade-up reveal-delay-1" id="diagnostic-card">
+            <div>
+              <div class="card-header-mono" style="color: var(--state-diagnosed);">
+                <span>⚠ MISCONCEPTION DETECTED</span>
+                <span>#CHAIN_MULT_CONFUSION</span>
+              </div>
+
+              <h3 class="card-headline">Treats Chain Rule as Multiplication</h3>
+              <p class="paradigm-description">
+                The student falsely assumes composed functions f(g(x)) can be resolved by multiplying independent isolated derivatives, ignoring nested envelope evaluation.
+              </p>
+            </div>
+
+            <div class="card-header-mono" style="margin-bottom: 0; color: var(--accent-cyan);">
+              <span>COGNITIVE STATE: DIAGNOSED // PATH: COMPOSITION GRAPH</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 5: REMEDIATION
+         ==================================================================== -->
+    <section class="section" id="remediation">
+      <div class="container">
+        <div class="reveal-fade-up">
+          <span class="section-tag">[ COGNITIVE_RESTRUCTURING // SCHEMA TRANSFORMATION ]</span>
+          <h2 class="section-title">From flawed intuition to crystalline clarity.</h2>
+          <p class="section-subtitle">
+            SLATE replaces broken mental models with formal, durable conceptual structures.
+          </p>
+        </div>
+
+        <div class="problem-comparison reveal-fade-up reveal-delay-1">
+          <!-- Flawed Model -->
+          <div class="paradigm-card">
+            <div>
+              <div class="card-header-mono" style="color: var(--state-diagnosed);">
+                <span>YOUR CURRENT MODEL</span>
+                <span>[ERRONEOUS SCHEMA]</span>
+              </div>
+              <h3 class="card-headline">Derivatives of composed functions multiply.</h3>
+              <div style="font-family: var(--font-mono); font-size: 20px; color: var(--state-diagnosed); margin: 16px 0;">
+                (f ∘ g)' = f' × g'
+              </div>
+              <p class="paradigm-description">
+                Treats the inner function as if it were decoupled, evaluating outer rate without reference to internal scale.
+              </p>
+            </div>
+          </div>
+
+          <!-- Correct Model -->
+          <div class="paradigm-card paradigm-slate">
+            <div>
+              <div class="card-header-mono" style="color: var(--accent-cyan);">
+                <span>CORRECT MENTAL MODEL</span>
+                <span>[CALIBRATED SCHEMATA]</span>
+              </div>
+              <h3 class="card-headline">The chain rule composes derivatives.</h3>
+              <div style="font-family: var(--font-mono); font-size: 20px; color: var(--accent-cyan-bright); margin: 16px 0;">
+                (f ∘ g)'(x) = f'(g(x)) · g'(x)
+              </div>
+              <p class="paradigm-description">
+                The outer function operates at the output of the inner function, transmitting rates through nested composition.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 6: THE FIVE-STATE GLASS MASTERY SYSTEM
+         ==================================================================== -->
+    <section class="section" id="mastery">
+      <div class="container">
+        <div class="reveal-fade-up">
+          <span class="section-tag">[ KNOWLEDGE_LATTICE // FIVE MASTERY STATES ]</span>
+          <h2 class="section-title">Knowledge isn't a percentage. It's a living lattice.</h2>
+          <p class="section-subtitle">
+            SLATE tracks every conceptual node across five granular mastery states as you explain, repair, and retain. Click any card to inspect live telemetry.
+          </p>
+        </div>
+
+        <div class="mastery-glass-system reveal-fade-up reveal-delay-1" id="mastery-glass-system">
+          <div class="mastery-states-grid">
+            
+            <!-- 01: UNSEEN -->
+            <div class="mastery-glass-card state-unseen" data-state="unseen">
+              <div class="mastery-card-header">
+                <span class="state-num-mono">01</span>
+                <span class="state-badge-pill">○ UNSEEN</span>
+              </div>
+              <div class="mastery-card-core">
+                <h3 class="state-card-name">Unseen</h3>
+                <p class="state-card-desc">Concept graph node unvisited. Awaiting prerequisite activation.</p>
+              </div>
+              <div class="state-metric-tag">[ DORMANT ]</div>
+            </div>
+
+            <!-- 02: SHAKY -->
+            <div class="mastery-glass-card state-shaky" data-state="shaky">
+              <div class="mastery-card-header">
+                <span class="state-num-mono">02</span>
+                <span class="state-badge-pill">▲ SHAKY</span>
+              </div>
+              <div class="mastery-card-core">
+                <h3 class="state-card-name">Shaky</h3>
+                <p class="state-card-desc">Heuristic guessing detected. Inconsistent transfer performance.</p>
+              </div>
+              <div class="state-metric-tag">[ UNSTABLE ]</div>
+            </div>
+
+            <!-- 03: DIAGNOSED -->
+            <div class="mastery-glass-card state-diagnosed" data-state="diagnosed">
+              <div class="mastery-card-header">
+                <span class="state-num-mono">03</span>
+                <span class="state-badge-pill">⚠ DIAGNOSED</span>
+              </div>
+              <div class="mastery-card-core">
+                <h3 class="state-card-name">Diagnosed</h3>
+                <p class="state-card-desc">We found the mental model behind the mistake.</p>
+              </div>
+              <div class="state-metric-tag">[ FLAW ISOLATED ]</div>
+            </div>
+
+            <!-- 04: IMPROVING -->
+            <div class="mastery-glass-card state-improving" data-state="improving">
+              <div class="mastery-card-header">
+                <span class="state-num-mono">04</span>
+                <span class="state-badge-pill">◈ IMPROVING</span>
+              </div>
+              <div class="mastery-card-core">
+                <h3 class="state-card-name">Improving</h3>
+                <p class="state-card-desc">Targeted remediation active. Mental model undergoing repair.</p>
+              </div>
+              <div class="state-metric-tag">[ CALIBRATING ]</div>
+            </div>
+
+            <!-- 05: MASTERED -->
+            <div class="mastery-glass-card state-mastered" data-state="mastered">
+              <div class="mastery-card-header">
+                <span class="state-num-mono">05</span>
+                <span class="state-badge-pill">✓ MASTERED</span>
+              </div>
+              <div class="mastery-card-core">
+                <h3 class="state-card-name">Mastered</h3>
+                <p class="state-card-desc">You can now solve the concept independently.</p>
+              </div>
+              <div class="state-metric-tag">[ VERIFIED ]</div>
+            </div>
+
+          </div>
+
+          <!-- Dynamic State Telemetry Drawer -->
+          <div class="telemetry-drawer" id="telemetry-drawer">
+            <div class="telemetry-header">
+              <span class="telemetry-title">STATE TELEMETRY INSPECTOR</span>
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--ink-muted);">[LIVE DECK FEED]</span>
+            </div>
+            <div class="telemetry-grid">
+              <div class="telemetry-stat">
+                <span class="telemetry-label">SCHEMA ENTROPY</span>
+                <span class="telemetry-val" id="tel-entropy">--</span>
+              </div>
+              <div class="telemetry-stat">
+                <span class="telemetry-label">TRANSFER SCORE</span>
+                <span class="telemetry-val" id="tel-transfer">--</span>
+              </div>
+              <div class="telemetry-stat">
+                <span class="telemetry-label">RETENTION HALF-LIFE</span>
+                <span class="telemetry-val" id="tel-retention">--</span>
+              </div>
+              <div class="telemetry-stat">
+                <span class="telemetry-label">VULNERABILITY TYPE</span>
+                <span class="telemetry-val" id="tel-vulnerability">--</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTION 7: FINAL CALL TO ACTION
+         ==================================================================== -->
+    <section class="section" id="cta">
+      <div class="container-narrow reveal-fade-up" style="text-align: center;">
+        <span class="section-tag">[ COMMENCE_RECONSTRUCTION ]</span>
+        <h2 style="font-family: var(--font-serif); font-style: italic; font-size: 48px; color: var(--ink-primary); margin-bottom: 8px;">
+          Don't just know the answer.
+        </h2>
+        <div style="font-family: var(--font-cursive); font-style: italic; font-size: 56px; color: var(--accent-cyan-bright); margin-bottom: 24px;">
+          Understand why.
+        </div>
+        
+        <p class="section-subtitle" style="margin: 0 auto 36px auto;">
+          Experience an intelligent cognitive laboratory designed to eliminate blind memorization forever.
+        </p>
+
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <a href="/" class="btn btn-primary-cyan" style="padding: 14px 32px; font-size: 15px;">
+            Start Learning &rarr;
+          </a>
+          <button type="button" class="btn btn-secondary-translucent btn-watch-demo" style="padding: 14px 28px; font-size: 15px;">
+            <span class="demo-icon" aria-hidden="true">○</span> Watch Demo
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================================================================
+       INTERACTIVE DEMO MODAL
+       Live Cognitive Diagnostic Inspector Simulation
+       ==================================================================== -->
+  <div class="modal-backdrop" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5, 7, 11, 0.85); backdrop-filter: blur(16px); z-index: 1000; display: none; align-items: center; justify-content: center;">
+    <div class="modal-dialog" style="width: 90%; max-width: 680px; background: rgba(13, 18, 28, 0.95); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 20px; padding: 28px; box-shadow: 0 25px 60px rgba(0,0,0,0.8); animation: modalSlideUp 0.35s ease;">
+      
+      <!-- Modal Header -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
+        <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-cyan); letter-spacing: 0.1em;" id="modal-title">
+          [S] SLATE COGNITIVE INSPECTOR // LIVE SIMULATION
+        </div>
+        <button type="button" class="modal-close-btn" aria-label="Close dialog" style="background: none; border: none; font-family: var(--font-mono); font-size: 13px; color: var(--ink-muted); cursor: pointer;">&times; ESC</button>
+      </div>
+
+      <!-- Problem Switcher Tabs -->
+      <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+        <button type="button" class="demo-problem-tab active" data-problem="chainRule" style="padding: 6px 12px; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-cyan); border-radius: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan); cursor: pointer;">#1 Chain Rule</button>
+        <button type="button" class="demo-problem-tab" data-problem="integrationByParts" style="padding: 6px 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-muted); cursor: pointer;">#2 Integration Parts</button>
+        <button type="button" class="demo-problem-tab" data-problem="productRule" style="padding: 6px 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-muted); cursor: pointer;">#3 Product Rule</button>
+      </div>
+
+      <!-- Problem Context -->
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 14px; border-radius: 8px; margin-bottom: 16px;">
+        <div style="font-family: var(--font-mono); font-size: 10px; color: var(--ink-muted); margin-bottom: 4px;">CHALLENGE PROMPT</div>
+        <div style="font-family: var(--font-mono); font-size: 13.5px; color: var(--ink-primary);" id="demo-problem-prompt">
+          Evaluate d/dx [ sin(x²) ] and justify each step.
+        </div>
+        <div style="font-size: 12.5px; color: var(--ink-muted); font-style: italic; margin-top: 8px;" id="demo-student-reasoning">
+          "I differentiated sin(x²) to cos(x²). Since x² stays inside, I didn't need to do anything to x²."
+        </div>
+      </div>
+
+      <!-- Live Stream Log Container -->
+      <div id="demo-stream-log" style="height: 140px; overflow-y: auto; background: rgba(7, 9, 13, 0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; font-family: var(--font-mono); font-size: 11.5px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px;">
+        <!-- Log lines dynamically injected -->
+      </div>
+
+      <!-- Diagnostic Result Banner -->
+      <div id="demo-diagnostic-banner" style="display: none; margin-bottom: 12px; background: var(--state-diagnosed-bg); border: 1px solid var(--state-diagnosed-border); padding: 12px; border-radius: 8px;">
+        <div class="diag-banner-title" style="font-family: var(--font-mono); font-size: 11px; color: var(--state-diagnosed); font-weight: 700;">
+          ● MISCONCEPTION ISOLATED
+        </div>
+        <div class="diag-banner-desc" style="font-size: 12.5px; color: var(--ink-secondary); margin-top: 4px;">
+          Detailed explanation...
+        </div>
+      </div>
+
+      <!-- Remediation Card -->
+      <div id="demo-remediation-card" style="display: none; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.35); padding: 12px; border-radius: 8px;">
+        <div class="remed-title" style="font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan); font-weight: 700;">
+          ✓ TARGET REPAIR SCHEMA ACTIVATED
+        </div>
+        <div class="remed-formula" style="font-family: var(--font-mono); font-size: 12.5px; color: var(--ink-primary); margin-top: 4px;">
+          Formula repair steps...
+        </div>
+      </div>
+
+      <!-- Rerun Analysis Trigger -->
+      <div style="margin-top: 16px; text-align: right;">
+        <button type="button" onclick="window.rerunDemoSimulation()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 14px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-muted); cursor: pointer;">↻ Re-run Diagnosis</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Minimal Footer -->
+  <footer style="padding: 40px 0; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 80px;">
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="font-family: var(--font-mono); font-size: 12px; color: var(--ink-muted);">
+        SLATE &copy; 2026 // COGNITIVE MASTERY SYSTEM
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 11px; color: var(--state-mastered); display: flex; align-items: center; gap: 8px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--state-mastered); box-shadow: 0 0 8px var(--state-mastered);"></span>
+        SLATE ENGINE: SYSTEM NOMINAL
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/parallax.js"></script>
+  <script src="js/scroll-triggers.js"></script>
+  <script src="js/demo-modal.js"></script>
+  <script src="js/interactive-widgets.js"></script>
+  <script src="js/loader.js"></script>
+</body>
+</html>
