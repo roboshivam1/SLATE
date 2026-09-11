@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+slate.db
+slate.db-wal
+slate.db-shm
+uploads/*
+static/clips/*
+!static/clips/.gitkeep

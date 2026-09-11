@@ -1,0 +1,51 @@
+:root {
+  --bg: #12110f;  --panel: #1b1a17;  --ink: #ece7dd;
+  --muted: #8f887c; --line: #2e2c27; --accent: #d97742;
+  --m-unseen: #3a3833;   --m-shaky: #7a6a3f;    --m-diagnosed: #b4542e;
+  --m-improving: #4b7a52; --m-mastered: #6fae72;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.55 ui-serif, Georgia, serif;
+}
+.topbar {
+  display: flex; align-items: baseline; gap: .9rem;
+  padding: 1rem 1.5rem; border-bottom: 1px solid var(--line);
+}
+.wordmark { font-weight: 700; letter-spacing: .22em; }
+.tagline { color: var(--muted); font-size: .8rem; font-style: italic; }
+main { max-width: 880px; margin: 0 auto; padding: 1.5rem; }
+.panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 4px; padding: 1.25rem; margin-bottom: 1.25rem;
+}
+h1 { font-size: 1.35rem; margin: 0 0 .4rem; }
+h2 { font-size: 1rem; margin: 0 0 .75rem; text-transform: uppercase;
+     letter-spacing: .12em; color: var(--muted); }
+.muted { color: var(--muted); }
+button, input[type=file] {
+  font: inherit; padding: .55rem .9rem; border-radius: 3px;
+  border: 1px solid var(--line); background: #232119; color: var(--ink);
+}
+button { background: var(--accent); color: #17140f; border: none;
+         cursor: pointer; font-weight: 600; }
+a { color: var(--accent); }
+.doclist { list-style: none; padding: 0; margin: 0; }
+.doclist li { padding: .35rem 0; border-bottom: 1px solid var(--line); }
+.conceptmap {
+  display: grid; gap: .6rem;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+}
+.node {
+  padding: .8rem; border-radius: 3px; border-left: 4px solid;
+  background: #201e1a; font-size: .9rem;
+}
+.m-unseen    { border-color: var(--m-unseen); color: var(--muted); }
+.m-shaky     { border-color: var(--m-shaky); }
+.m-diagnosed { border-color: var(--m-diagnosed); }
+.m-improving { border-color: var(--m-improving); }
+.m-mastered  { border-color: var(--m-mastered); }
+mark { background: var(--accent); color: #17140f; padding: 0 .15em; }
+.htmx-indicator { opacity: 0; transition: opacity .2s; }
+.htmx-request .htmx-indicator { opacity: 1; }

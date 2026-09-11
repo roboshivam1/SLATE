@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+  <h1>{{ doc.title if doc else "Not found" }}</h1>
+</section>
+
+<section class="panel">
+  <h2>Concepts</h2>
+  {% if concepts %}
+    <div class="conceptmap">
+      {% for c in concepts %}
+        <div class="node m-unseen">{{ c.name }}</div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="muted">No concepts yet — ingestion lands in M1.</p>
+  {% endif %}
+</section>
+
+<section class="panel" id="question-area">
+  <p class="muted">The question loop arrives in M2.</p>
+</section>
+{% endblock %}
