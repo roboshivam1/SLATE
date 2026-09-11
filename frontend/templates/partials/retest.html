@@ -1,0 +1,47 @@
+<!-- PARTIAL: RETEST EVALUATION & MASTERY UPDATE -->
+<section class="lab-card retest-card" id="retest-card">
+  <div class="lab-card-header">
+    <div class="lab-label-technical" style="color: var(--accent-electric);">
+      RETEST EVALUATION // CONCEPT VERIFICATION
+    </div>
+    <span class="lab-meta-mono">STATUS: MODEL RECONCILED</span>
+  </div>
+
+  <div class="lab-card-body">
+    <div class="retest-result-box improving">
+      <div class="lab-meta-mono" style="color: var(--state-improving); margin-bottom: 4px;">
+        &check; COGNITIVE DIVERGENCE RESOLVED
+      </div>
+      <h3 class="retest-title">
+        Retest Successful: Outer & Inner Composition Recognized
+      </h3>
+      <p style="font-size: 0.95rem; line-height: 1.6; color: var(--ink-secondary);">
+        The student's updated formulation correctly chains the derivative of the outer function evaluated at the inner function:
+        <br>
+        <code style="display: block; margin-top: 8px; padding: 8px 12px; background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 2px; font-family: var(--font-mono); font-size: 0.85rem;">
+          d/dx [f(g(x))] = f'(g(x)) &bull; g'(x)
+        </code>
+      </p>
+    </div>
+
+    <!-- MASTERY ADVANCEMENT INDICATOR -->
+    <div style="margin-top: var(--space-6); display: flex; align-items: center; justify-content: space-between; padding: var(--space-4); background: var(--bg-surface-inset); border: 1px solid var(--border-subtle); border-radius: 3px;">
+      <div>
+        <span class="lab-meta-mono" style="display: block;">STATE TRANSITION:</span>
+        <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+          <span class="mastery-pill diagnosed">DIAGNOSED</span>
+          <span style="color: var(--ink-muted); font-size: 0.8rem;">&rarr;</span>
+          <span class="mastery-pill improving">IMPROVING</span>
+        </div>
+      </div>
+      <a href="/study/calculus-derivatives" class="btn-lab btn-lab-outline" style="font-size: 0.72rem;">
+        Next Concept &rarr;
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- OUT-OF-BAND SWAP TO UPDATE CONCEPT MAP WITH SCIENTIFIC REGISTRATION ANIMATION -->
+<div id="concept-map-slot" hx-swap-oob="true">
+  {% include "partials/concept_map.html" %}
+</div>
