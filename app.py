@@ -20,6 +20,7 @@ from remediate import resolver
 
 app = FastAPI(title="SLATE")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/landing", StaticFiles(directory="slate-landing", html=True), name="landing")
 templates = Jinja2Templates(directory="templates")
 templates.env.filters["highlight"] = highlight
 
