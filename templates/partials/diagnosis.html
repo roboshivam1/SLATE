@@ -1,0 +1,37 @@
+<h2>{{ concept.name }}</h2>
+<p class="question">{{ question }}</p>
+
+<div class="answerbox">
+  <span class="label">Your answer</span>
+  <p>{{ answer | highlight(d.evidence_span) }}</p>
+</div>
+
+{% if d.is_correct %}
+  <div class="diagnosis correct">
+    <span class="label">Assessment</span>
+    <h3>That's sound reasoning.</h3>
+    <p>{{ d.narration }}</p>
+  </div>
+
+{% elif d.is_unknown %}
+  <div class="diagnosis unknown">
+    <span class="label">Assessment</span>
+    <h3>Something's off, but it isn't a pattern I recognise.</h3>
+    <p>{{ d.narration }}</p>
+  </div>
+
+{% else %}
+  <div class="diagnosis named">
+    <span class="label">
+      {% if d.is_tentative %}Possible misconception{% else %}Diagnosed misconception{% endif %}
+    </span>
+    <h3>
+      {% if d.is_tentative %}I think you might be {% endif %}{{ d.misconception_name }}
+    </h3>
+    <p>{{ d.narration }}</p>
+    <p class="conf">confidence {{ d.confidence }}
+      {%- if d.evidence_span %} · matched against your own words{% endif %}</p>
+  </div>
+{% endif %}
+
+<p><a href="/study/{{ concept.document_id }}">Next question</a></p>

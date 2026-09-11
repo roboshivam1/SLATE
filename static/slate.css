@@ -49,3 +49,24 @@ a { color: var(--accent); }
 mark { background: var(--accent); color: #17140f; padding: 0 .15em; }
 .htmx-indicator { opacity: 0; transition: opacity .2s; }
 .htmx-request .htmx-indicator { opacity: 1; }
+.misclist { list-style: none; padding: 0; margin: 0; }
+.misclist li { padding: .7rem 0; border-bottom: 1px solid var(--line); font-size: .92rem; }
+.wrong { color: var(--m-diagnosed); font-style: italic; }
+.right { color: var(--m-improving); }
+.question { font-size: 1.05rem; margin: .5rem 0 1rem; }
+textarea { width: 100%; font: inherit; padding: .7rem; border-radius: 3px;
+           background: #232119; color: var(--ink); border: 1px solid var(--line); }
+.formrow { display: flex; align-items: center; gap: .8rem; margin-top: .7rem; }
+.mastery { display: block; font-size: .7rem; text-transform: uppercase;
+           letter-spacing: .1em; color: var(--muted); margin-top: .3rem; }
+.answerbox { background: #201e1a; border-left: 3px solid var(--line);
+             padding: .8rem 1rem; margin: 1rem 0; }
+.label { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em;
+         color: var(--muted); }
+.diagnosis { padding: 1rem 1.2rem; border-radius: 3px; margin: 1rem 0;
+             border-left: 4px solid; background: #201e1a; }
+.diagnosis h3 { margin: .3rem 0 .5rem; font-size: 1.15rem; }
+.diagnosis.named    { border-color: var(--m-diagnosed); }
+.diagnosis.correct  { border-color: var(--m-mastered); }
+.diagnosis.unknown  { border-color: var(--m-shaky); }
+.conf { font-size: .78rem; color: var(--muted); margin-top: .6rem; }
